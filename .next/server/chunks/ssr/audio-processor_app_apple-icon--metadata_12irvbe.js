@@ -1,0 +1,3 @@
+module.exports=[40152,a=>{"use strict";a.i(82765),a.i(76701);var b=a.i(77626);let c={contentType:"image/png",dynamic:"force-static",size:{width:144,height:144}};async function d(a){let{__metadata_id__:d,...e}=await a.params,f=(0,b.fillMetadataSegment)("/",e,"apple-icon",!1);return[function(a){let b={alt:a.alt,type:a.contentType||"image/png",url:f+"?b2c420c88e144e67"},{size:c}=a;return c&&(b.sizes=`${c.width}x${c.height}`),b}(c)]}a.s(["default",0,d],40152)},38231,a=>{a.n(a.i(40152))}];
+
+//# sourceMappingURL=audio-processor_app_apple-icon--metadata_12irvbe.js.map

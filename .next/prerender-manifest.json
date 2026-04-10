@@ -73,13 +73,42 @@
         "x-next-revalidated-tags",
         "x-next-revalidate-tag-token"
       ]
+    },
+    "/apple-icon": {
+      "initialHeaders": {
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "image/png",
+        "x-next-cache-tags": "_N_T_/layout,_N_T_/apple-icon/layout,_N_T_/apple-icon/route,_N_T_/apple-icon"
+      },
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/apple-icon",
+      "dataRoute": null,
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
     }
   },
   "dynamicRoutes": {},
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "3018226bbeb838196b8fc0c77a08db61",
-    "previewModeSigningKey": "be0c3f8d8cb938e7647e95198368a5abf72e2ef7e7c4f4bae872dadacf7f2409",
-    "previewModeEncryptionKey": "43309b5fe7aa751fbbb39ae7e5f106e1ef2cb9a2aa9f6be471ddd80506465da8"
+    "previewModeId": "775f8f1ccd28396c61e79948a1bbafb6",
+    "previewModeSigningKey": "77dfe12d57e4df5ef20e27d5e784a9a37ca757708a41af5d2f0e675889c471af",
+    "previewModeEncryptionKey": "daeb4dae9350e0320d5dbb966b34c3c23778ebb9d676fe76aeeeda1b0cbe4190"
   }
 }
