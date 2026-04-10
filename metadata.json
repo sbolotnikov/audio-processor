@@ -1,0 +1,5 @@
+{
+  "name": "Audio Processor",
+  "description": "An app to change integrated loudness, loudness range, true peak, cut audio, and change speed.",
+  "requestFramePermissions": []
+}

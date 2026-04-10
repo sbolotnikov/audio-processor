@@ -1,0 +1,3 @@
+module.exports=[26555,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(61607);a.n(d("[project]/audio-processor/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},72385,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(61607);a.n(d("[project]/audio-processor/node_modules/next/dist/client/components/builtin/global-error.js"))},56866,a=>{"use strict";a.i(26555);var b=a.i(72385);a.n(b)},16878,a=>{a.n(a.i(56866))}];
+
+//# sourceMappingURL=0ftb_next_dist_client_components_builtin_global-error_0jzkje~.js.map

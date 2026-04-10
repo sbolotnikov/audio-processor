@@ -1,0 +1,3 @@
+module.exports=[20860,a=>{"use strict";var b=a.i(82765);a.s(["default",0,function({children:a}){return(0,b.jsx)("html",{lang:"en",className:"dark",children:(0,b.jsx)("body",{className:"antialiased",children:a})})},"metadata",0,{title:"Audio Processor",description:"Loudness Normalization & Editing"}])},84136,a=>{a.n(a.i(20860))}];
+
+//# sourceMappingURL=audio-processor_app_layout_tsx_00a.h4r._.js.map
