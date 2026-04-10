@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     url: process.env.NEXTAUTH_URL || 'https://audio-processor-liart.vercel.app/',
     type: 'website',
     images: [
-      { url: '/logo2.jpg', width: 1200, height: 640 },
+      { url: 'https://audio-processor-liart.vercel.app/logo2.jpg', width: 1200, height: 640 },
     ],
   },
 };
@@ -33,6 +33,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
+      <link
+        rel="icon"
+        href="/icon?<generated>"
+        type="image/<generated>"
+        sizes="<generated>"
+      />
+      <link
+        rel="apple-touch-icon"
+        href="/apple-icon?<generated>"
+        type="image/<generated>"
+        sizes="<generated>"
+      />
       <body suppressHydrationWarning={true} className="antialiased">{children}</body>
     </html>
   );

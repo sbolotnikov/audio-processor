@@ -1,0 +1,8 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/audio-processor/app/page": []
+  },
+  "appUsingSizeAdjust": false,
+  "pagesUsingSizeAdjust": false
+}
