@@ -6,6 +6,7 @@ A full-featured, client-side audio processing application built with Next.js, Re
 
 - **Client-Side Processing:** Uses `FFmpeg.wasm` to process audio entirely within the browser, ensuring user privacy and fast feedback.
 - **Visual Audio Editing:** Integrates `WaveSurfer.js` to provide a visual waveform of the uploaded audio. Users can drag to select specific regions to cut or trim.
+- **Cut and Stitch:** Add multiple regions from the original recording, reorder them, and stitch them into one continuous track before applying the other effects.
 - **Loudness Normalization:** Implements EBU R128 loudness normalization, allowing users to set target Integrated Loudness (LUFS), Loudness Range (LRA), and True Peak (dBTP).
 - **Playback Speed Control:** Adjust the speed of the audio output (±30% range).
 - **Fade In / Fade Out:** Add smooth fade-in and fade-out transitions to the processed audio.
@@ -26,12 +27,13 @@ A full-featured, client-side audio processing application built with Next.js, Re
 1. **Initialization:** On load, the app fetches the FFmpeg WebAssembly core and initializes a background worker.
 2. **File Upload:** The user selects an audio file (WAV, MP3, AAC, FLAC). The file is loaded into a local Blob URL.
 3. **Visualization:** WaveSurfer.js reads the Blob URL and draws an interactive waveform. A Regions plugin is attached to allow visual trimming.
-4. **Parameter Configuration:** The user adjusts sliders for loudness targets, speed, and fades.
-5. **Processing:** 
+4. **Cut and Stitch (optional):** The user can add several selected regions to an ordered piece list. Those regions are trimmed and concatenated into one track.
+5. **Parameter Configuration:** The user adjusts sliders for loudness targets, speed, and fades.
+6. **Processing:** 
    - The original file is written to FFmpeg's virtual in-memory file system.
    - A complex FFmpeg command is constructed based on the user's parameters (using filters like `atempo`, `loudnorm`, `afade`).
    - FFmpeg executes the command, processing the audio entirely in the browser.
-6. **Export:** The resulting file is read from the virtual file system, converted to a Blob URL, and presented to the user for playback and download.
+7. **Export:** The resulting file is read from the virtual file system, converted to a Blob URL, and presented to the user for playback and download.
 
 ## Development
 

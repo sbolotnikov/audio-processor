@@ -9,7 +9,13 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
-import { Upload, Play, Pause, Download, Scissors, Loader2, Settings2, FastForward, Rewind } from 'lucide-react';
+import { Upload, Play, Pause, Download, Scissors, Loader2, Settings2, FastForward, Rewind, ListPlus, ArrowUp, ArrowDown, Trash2 } from 'lucide-react';
+
+type AudioPiece = {
+  id: string;
+  start: number;
+  end: number;
+};
 
 /**
  * Main Application Component
@@ -49,6 +55,7 @@ export default function App() {
   // Region Selection (Cutting)
   const [cutStart, setCutStart] = useState<number | null>(null);
   const [cutEnd, setCutEnd] = useState<number | null>(null);
+  const [pieces, setPieces] = useState<AudioPiece[]>([]);
   
   // Output Format
   const [outputFormat, setOutputFormat] = useState<'wav' | 'mp3'>('wav');
@@ -225,7 +232,33 @@ export default function App() {
       setFile(selectedFile);
       setAudioUrl(URL.createObjectURL(selectedFile));
       setProcessedUrl(null); // Reset previous output
+      setPieces([]);
     }
+  };
+
+  const addSelectedPiece = () => {
+    if (cutStart === null || cutEnd === null || cutEnd <= cutStart) return;
+    setPieces((current) => [
+      ...current,
+      { id: crypto.randomUUID(), start: cutStart, end: cutEnd },
+    ]);
+    setProcessedUrl(null);
+  };
+
+  const movePiece = (index: number, direction: -1 | 1) => {
+    setPieces((current) => {
+      const target = index + direction;
+      if (target < 0 || target >= current.length) return current;
+      const next = [...current];
+      [next[index], next[target]] = [next[target], next[index]];
+      return next;
+    });
+    setProcessedUrl(null);
+  };
+
+  const removePiece = (id: string) => {
+    setPieces((current) => current.filter((piece) => piece.id !== id));
+    setProcessedUrl(null);
   };
 
   // --- Playback Controls ---
@@ -267,17 +300,9 @@ export default function App() {
       // Write the input file to FFmpeg's virtual file system
       await ffmpeg.writeFile(inputName, await fetchFile(file));
 
-      const args = [];
-      
-      // 1. Cutting (Trimming)
-      // Apply -ss (start) and -to (end) before the input for faster seeking
-      if (typeof cutStart === 'number' && typeof cutEnd === 'number') {
-        args.push('-ss', cutStart.toString(), '-to', cutEnd.toString());
-      }
-      
-      args.push('-i', inputName);
+      const args = ['-i', inputName];
 
-      const filters = [];
+      const filters: string[] = [];
       
       // 2. Playback Speed (atempo)
       const safeSpeed = typeof speed === 'number' ? speed : 1.0;
@@ -294,7 +319,12 @@ export default function App() {
 
       // 4. Fades (afade)
       // Calculate final duration to accurately place the fade-out
-      const baseDuration = (typeof cutStart === 'number' && typeof cutEnd === 'number') ? (cutEnd - cutStart) : duration;
+      const selectedPieces = pieces.length > 0
+        ? pieces
+        : (typeof cutStart === 'number' && typeof cutEnd === 'number')
+          ? [{ id: 'selection', start: cutStart, end: cutEnd }]
+          : [{ id: 'full', start: 0, end: duration }];
+      const baseDuration = selectedPieces.reduce((total, piece) => total + (piece.end - piece.start), 0);
       const finalDuration = baseDuration / safeSpeed;
 
       if (fadeIn > 0) {
@@ -305,8 +335,16 @@ export default function App() {
         filters.push(`afade=t=out:st=${fadeOutStart}:d=${fadeOut}`);
       }
 
-      // Apply all filters
-      args.push('-af', filters.join(','));
+      // First trim each requested piece from the original input, then stitch the
+      // ordered pieces into one stream. Existing manipulations run afterwards.
+      const trimFilters = selectedPieces.map(
+        (piece, index) =>
+          `[0:a]atrim=start=${piece.start}:end=${piece.end},asetpts=PTS-STARTPTS[p${index}]`
+      );
+      const pieceInputs = selectedPieces.map((_, index) => `[p${index}]`).join('');
+      const concatFilter = `${pieceInputs}concat=n=${selectedPieces.length}:v=0:a=1[stitched]`;
+      const manipulationFilter = `[stitched]${filters.join(',')}[processed]`;
+      args.push('-filter_complex', [...trimFilters, concatFilter, manipulationFilter].join(';'), '-map', '[processed]');
       
       // 5. Encoding Options
       if (outputFormat === 'mp3') {
@@ -396,6 +434,7 @@ export default function App() {
                     setFile(null);
                     setAudioUrl(null);
                     setProcessedUrl(null);
+                    setPieces([]);
                   }}>
                     Change File
                   </Button>
@@ -432,6 +471,48 @@ export default function App() {
                       )}
                     </div>
                   </div>
+                </div>
+
+                <div className="rounded-lg border border-zinc-800 bg-black/20 p-4 space-y-4">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-zinc-200">Stitch pieces</p>
+                      <p className="text-xs text-zinc-500 mt-1">Adjust the green region, then add each piece in playback order.</p>
+                    </div>
+                    <Button variant="outline" size="sm" onClick={addSelectedPiece} disabled={cutStart === null || cutEnd === null || cutEnd <= cutStart}>
+                      <ListPlus className="w-4 h-4 mr-2" />
+                      Add selected piece
+                    </Button>
+                  </div>
+
+                  {pieces.length > 0 ? (
+                    <div className="space-y-2">
+                      {pieces.map((piece, index) => (
+                        <div key={piece.id} className="flex items-center gap-2 rounded-md bg-zinc-900 px-3 py-2">
+                          <span className="w-7 text-xs font-mono text-zinc-500">{index + 1}.</span>
+                          <span className="flex-1 font-mono text-xs text-zinc-300">
+                            {piece.start.toFixed(2)}s – {piece.end.toFixed(2)}s
+                            <span className="ml-2 text-zinc-600">({(piece.end - piece.start).toFixed(2)}s)</span>
+                          </span>
+                          <Button variant="ghost" size="icon" onClick={() => movePiece(index, -1)} disabled={index === 0} aria-label="Move piece up">
+                            <ArrowUp className="w-4 h-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon" onClick={() => movePiece(index, 1)} disabled={index === pieces.length - 1} aria-label="Move piece down">
+                            <ArrowDown className="w-4 h-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon" onClick={() => removePiece(piece.id)} aria-label="Remove piece" className="text-red-400 hover:text-red-300">
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      ))}
+                      <div className="flex items-center justify-between pt-1 text-xs font-mono text-zinc-500">
+                        <span>{pieces.length} {pieces.length === 1 ? 'piece' : 'pieces'}</span>
+                        <span>Total: {pieces.reduce((total, piece) => total + piece.end - piece.start, 0).toFixed(2)}s</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-xs font-mono text-zinc-600">No stitch list yet. Processing will use the current green region as before.</p>
+                  )}
                 </div>
               </div>
             )}
