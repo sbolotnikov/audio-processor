@@ -57,6 +57,18 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
+      "page": "/api/youtube/extract",
+      "regex": "^/api/youtube/extract(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/youtube/extract(?:/)?$"
+    },
+    {
+      "page": "/api/youtube/info",
+      "regex": "^/api/youtube/info(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/youtube/info(?:/)?$"
+    },
+    {
       "page": "/apple-icon",
       "regex": "^/apple\\-icon(?:/)?$",
       "routeKeys": {},

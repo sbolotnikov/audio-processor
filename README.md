@@ -5,6 +5,8 @@ A full-featured, client-side audio processing application built with Next.js, Re
 ## Features
 
 - **Client-Side Processing:** Uses `FFmpeg.wasm` to process audio entirely within the browser, ensuring user privacy and fast feedback.
+- **YouTube Import:** Paste a public YouTube, Shorts, or YouTube Music URL and extract its audio directly into the editor.
+- **MIDI Rendering:** Import `.mid` or `.midi` files, synthesize their notes locally, preview and edit the result, then export it as MP3.
 - **Visual Audio Editing:** Integrates `WaveSurfer.js` to provide a visual waveform of the uploaded audio. Users can drag to select specific regions to cut or trim.
 - **Cut and Stitch:** Add multiple regions from the original recording, reorder them, and stitch them into one continuous track before applying the other effects.
 - **Loudness Normalization:** Implements EBU R128 loudness normalization, allowing users to set target Integrated Loudness (LUFS), Loudness Range (LRA), and True Peak (dBTP).
@@ -37,7 +39,7 @@ A full-featured, client-side audio processing application built with Next.js, Re
 
 ## Development
 
-This project uses Next.js with static export (`output: 'export'`).
+YouTube importing uses a Next.js server route and therefore requires a server-backed deployment. Platform-specific `yt-dlp` binaries are bundled in `youtube-to-mp3-converter/bin`. The original audio stream is loaded into the editor, so system FFmpeg is not required; local editing and MP3/WAV export still use FFmpeg.wasm in the browser.
 
 ```bash
 # Install dependencies

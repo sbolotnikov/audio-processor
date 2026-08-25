@@ -307,6 +307,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_m
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$up$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowUp$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/arrow-up.js [app-ssr] (ecmascript) <export default as ArrowUp>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowDown$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/arrow-down.js [app-ssr] (ecmascript) <export default as ArrowDown>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-ssr] (ecmascript) <export default as Trash2>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$youtube$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Youtube$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/youtube.js [app-ssr] (ecmascript) <export default as Youtube>");
 "use client";
 ;
 ;
@@ -329,6 +330,9 @@ function App() {
     const [file, setFile] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [audioUrl, setAudioUrl] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [processedUrl, setProcessedUrl] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [youtubeUrl, setYoutubeUrl] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [isExtractingYoutube, setIsExtractingYoutube] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [youtubeError, setYoutubeError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     // Playback & Processing State
     const [isPlaying, setIsPlaying] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isProcessing, setIsProcessing] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -495,6 +499,43 @@ function App() {
             setPieces([]);
         }
     };
+    const importFromYoutube = async ()=>{
+        if (!youtubeUrl.trim() || isExtractingYoutube) return;
+        setIsExtractingYoutube(true);
+        setYoutubeError(null);
+        try {
+            const response = await fetch('/api/youtube/extract', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    url: youtubeUrl
+                })
+            });
+            if (!response.ok) {
+                const data = await response.json().catch(()=>({}));
+                throw new Error(data.error || 'YouTube extraction failed.');
+            }
+            const titleHeader = response.headers.get('X-Video-Title');
+            const title = titleHeader ? decodeURIComponent(titleHeader) : 'youtube-audio';
+            const extension = response.headers.get('X-Audio-Extension') || 'webm';
+            const blob = await response.blob();
+            const importedFile = new File([
+                blob
+            ], `${title.replace(/[<>:"/\\|?*]/g, '').slice(0, 120)}.${extension}`, {
+                type: blob.type
+            });
+            setFile(importedFile);
+            setAudioUrl(URL.createObjectURL(importedFile));
+            setProcessedUrl(null);
+            setPieces([]);
+        } catch (error) {
+            setYoutubeError(error instanceof Error ? error.message : 'Unable to import this video.');
+        } finally{
+            setIsExtractingYoutube(false);
+        }
+    };
     const addSelectedPiece = ()=>{
         if (cutStart === null || cutEnd === null || cutEnd <= cutStart) return;
         setPieces((current)=>[
@@ -651,7 +692,7 @@ function App() {
                                     children: "Audio Processor"
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 384,
+                                    lineNumber: 417,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -659,13 +700,13 @@ function App() {
                                     children: "Loudness Normalization & Editing"
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 385,
+                                    lineNumber: 418,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/audio-processor/app/page.tsx",
-                            lineNumber: 383,
+                            lineNumber: 416,
                             columnNumber: 11
                         }, this),
                         !isFfmpegLoaded && !engineError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -675,7 +716,7 @@ function App() {
                                     className: "w-4 h-4 mr-2 animate-spin"
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 390,
+                                    lineNumber: 423,
                                     columnNumber: 15
                                 }, this),
                                 loadingStep,
@@ -685,13 +726,13 @@ function App() {
                                     children: "(Check console if stuck)"
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 393,
+                                    lineNumber: 426,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/audio-processor/app/page.tsx",
-                            lineNumber: 389,
+                            lineNumber: 422,
                             columnNumber: 13
                         }, this),
                         engineError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -702,14 +743,14 @@ function App() {
                                     children: "ENGINE ERROR:"
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 399,
+                                    lineNumber: 432,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     children: engineError
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 400,
+                                    lineNumber: 433,
                                     columnNumber: 15
                                 }, this),
                                 mounted && !window.crossOriginIsolated && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -717,66 +758,186 @@ function App() {
                                     children: "SharedArrayBuffer not enabled. Check COOP/COEP headers."
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 402,
+                                    lineNumber: 435,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/audio-processor/app/page.tsx",
-                            lineNumber: 398,
+                            lineNumber: 431,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/audio-processor/app/page.tsx",
-                    lineNumber: 382,
+                    lineNumber: 415,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Card"], {
                     className: "bg-[#1C1D21] border-zinc-800",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardContent"], {
                         className: "p-6 space-y-6",
-                        children: !file ? // File Upload Dropzone
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "border-2 border-dashed border-zinc-700 rounded-lg p-12 text-center hover:border-zinc-500 transition-colors cursor-pointer relative",
+                        children: !file ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "space-y-5",
                             children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                    type: "file",
-                                    accept: "audio/*",
-                                    onChange: handleFileUpload,
-                                    className: "absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                }, void 0, false, {
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "rounded-lg border border-zinc-700 bg-black/20 p-5",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "mb-3 flex items-center gap-2 text-sm font-medium text-zinc-200",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$youtube$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Youtube$3e$__["Youtube"], {
+                                                    className: "h-5 w-5 text-red-500"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/audio-processor/app/page.tsx",
+                                                    lineNumber: 450,
+                                                    columnNumber: 21
+                                                }, this),
+                                                "Import audio from YouTube"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/audio-processor/app/page.tsx",
+                                            lineNumber: 449,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex flex-col gap-3 sm:flex-row",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                    type: "url",
+                                                    value: youtubeUrl,
+                                                    onChange: (event)=>setYoutubeUrl(event.target.value),
+                                                    onKeyDown: (event)=>event.key === 'Enter' && importFromYoutube(),
+                                                    placeholder: "Paste a YouTube, Shorts, or Music URL",
+                                                    disabled: isExtractingYoutube,
+                                                    className: "h-10 flex-1 rounded-md border border-zinc-700 bg-[#151619] px-3 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-zinc-500"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/audio-processor/app/page.tsx",
+                                                    lineNumber: 454,
+                                                    columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
+                                                    onClick: importFromYoutube,
+                                                    disabled: !youtubeUrl.trim() || isExtractingYoutube,
+                                                    children: [
+                                                        isExtractingYoutube ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__["Loader2"], {
+                                                            className: "mr-2 h-4 w-4 animate-spin"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/audio-processor/app/page.tsx",
+                                                            lineNumber: 464,
+                                                            columnNumber: 46
+                                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$download$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Download$3e$__["Download"], {
+                                                            className: "mr-2 h-4 w-4"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/audio-processor/app/page.tsx",
+                                                            lineNumber: 464,
+                                                            columnNumber: 98
+                                                        }, this),
+                                                        isExtractingYoutube ? 'Extracting…' : 'Import audio'
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/audio-processor/app/page.tsx",
+                                                    lineNumber: 463,
+                                                    columnNumber: 21
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/audio-processor/app/page.tsx",
+                                            lineNumber: 453,
+                                            columnNumber: 19
+                                        }, this),
+                                        youtubeError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "mt-3 text-xs text-red-400",
+                                            children: youtubeError
+                                        }, void 0, false, {
+                                            fileName: "[project]/audio-processor/app/page.tsx",
+                                            lineNumber: 468,
+                                            columnNumber: 36
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "mt-3 text-xs text-zinc-500",
+                                            children: "Only download content you own or have permission to use."
+                                        }, void 0, false, {
+                                            fileName: "[project]/audio-processor/app/page.tsx",
+                                            lineNumber: 469,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 416,
+                                    lineNumber: 448,
                                     columnNumber: 17
                                 }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__["Upload"], {
-                                    className: "w-12 h-12 mx-auto text-zinc-500 mb-4"
-                                }, void 0, false, {
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center gap-3 text-xs uppercase tracking-widest text-zinc-600",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "h-px flex-1 bg-zinc-800"
+                                        }, void 0, false, {
+                                            fileName: "[project]/audio-processor/app/page.tsx",
+                                            lineNumber: 473,
+                                            columnNumber: 19
+                                        }, this),
+                                        "or upload a file",
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "h-px flex-1 bg-zinc-800"
+                                        }, void 0, false, {
+                                            fileName: "[project]/audio-processor/app/page.tsx",
+                                            lineNumber: 473,
+                                            columnNumber: 79
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 422,
+                                    lineNumber: 472,
                                     columnNumber: 17
                                 }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-zinc-300 font-medium",
-                                    children: "Drop audio file here or click to browse"
-                                }, void 0, false, {
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "border-2 border-dashed border-zinc-700 rounded-lg p-12 text-center hover:border-zinc-500 transition-colors cursor-pointer relative",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                            type: "file",
+                                            accept: "audio/*",
+                                            onChange: handleFileUpload,
+                                            className: "absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                        }, void 0, false, {
+                                            fileName: "[project]/audio-processor/app/page.tsx",
+                                            lineNumber: 477,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__["Upload"], {
+                                            className: "w-12 h-12 mx-auto text-zinc-500 mb-4"
+                                        }, void 0, false, {
+                                            fileName: "[project]/audio-processor/app/page.tsx",
+                                            lineNumber: 483,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-zinc-300 font-medium",
+                                            children: "Drop audio file here or click to browse"
+                                        }, void 0, false, {
+                                            fileName: "[project]/audio-processor/app/page.tsx",
+                                            lineNumber: 484,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-zinc-500 text-sm mt-2",
+                                            children: "Supports WAV, MP3, AAC, FLAC"
+                                        }, void 0, false, {
+                                            fileName: "[project]/audio-processor/app/page.tsx",
+                                            lineNumber: 485,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 423,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-zinc-500 text-sm mt-2",
-                                    children: "Supports WAV, MP3, AAC, FLAC"
-                                }, void 0, false, {
-                                    fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 424,
+                                    lineNumber: 476,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/audio-processor/app/page.tsx",
-                            lineNumber: 415,
+                            lineNumber: 447,
                             columnNumber: 15
                         }, this) : // Active Audio Player
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -790,7 +951,7 @@ function App() {
                                             children: file.name
                                         }, void 0, false, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 430,
+                                            lineNumber: 492,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -805,13 +966,13 @@ function App() {
                                             children: "Change File"
                                         }, void 0, false, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 433,
+                                            lineNumber: 495,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 429,
+                                    lineNumber: 491,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -825,7 +986,7 @@ function App() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 445,
+                                            lineNumber: 507,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -833,7 +994,7 @@ function App() {
                                             className: "w-full"
                                         }, void 0, false, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 450,
+                                            lineNumber: 512,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -850,12 +1011,12 @@ function App() {
                                                                 className: "w-4 h-4"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/app/page.tsx",
-                                                                lineNumber: 456,
+                                                                lineNumber: 518,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 455,
+                                                            lineNumber: 517,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -866,18 +1027,18 @@ function App() {
                                                                 className: "w-5 h-5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/app/page.tsx",
-                                                                lineNumber: 459,
+                                                                lineNumber: 521,
                                                                 columnNumber: 38
                                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$play$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Play$3e$__["Play"], {
                                                                 className: "w-5 h-5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/app/page.tsx",
-                                                                lineNumber: 459,
+                                                                lineNumber: 521,
                                                                 columnNumber: 70
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 458,
+                                                            lineNumber: 520,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -888,12 +1049,12 @@ function App() {
                                                                 className: "w-4 h-4"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/app/page.tsx",
-                                                                lineNumber: 462,
+                                                                lineNumber: 524,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 461,
+                                                            lineNumber: 523,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -906,13 +1067,13 @@ function App() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 464,
+                                                            lineNumber: 526,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 454,
+                                                    lineNumber: 516,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -927,24 +1088,24 @@ function App() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/audio-processor/app/page.tsx",
-                                                        lineNumber: 470,
+                                                        lineNumber: 532,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 468,
+                                                    lineNumber: 530,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 453,
+                                            lineNumber: 515,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 443,
+                                    lineNumber: 505,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -960,7 +1121,7 @@ function App() {
                                                             children: "Stitch pieces"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 479,
+                                                            lineNumber: 541,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -968,13 +1129,13 @@ function App() {
                                                             children: "Adjust the green region, then add each piece in playback order."
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 480,
+                                                            lineNumber: 542,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 478,
+                                                    lineNumber: 540,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -987,20 +1148,20 @@ function App() {
                                                             className: "w-4 h-4 mr-2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 483,
+                                                            lineNumber: 545,
                                                             columnNumber: 23
                                                         }, this),
                                                         "Add selected piece"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 482,
+                                                    lineNumber: 544,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 477,
+                                            lineNumber: 539,
                                             columnNumber: 19
                                         }, this),
                                         pieces.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1017,7 +1178,7 @@ function App() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/audio-processor/app/page.tsx",
-                                                                lineNumber: 492,
+                                                                lineNumber: 554,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1036,13 +1197,13 @@ function App() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/audio-processor/app/page.tsx",
-                                                                        lineNumber: 495,
+                                                                        lineNumber: 557,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/audio-processor/app/page.tsx",
-                                                                lineNumber: 493,
+                                                                lineNumber: 555,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -1055,12 +1216,12 @@ function App() {
                                                                     className: "w-4 h-4"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                                    lineNumber: 498,
+                                                                    lineNumber: 560,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/app/page.tsx",
-                                                                lineNumber: 497,
+                                                                lineNumber: 559,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -1073,12 +1234,12 @@ function App() {
                                                                     className: "w-4 h-4"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                                    lineNumber: 501,
+                                                                    lineNumber: 563,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/app/page.tsx",
-                                                                lineNumber: 500,
+                                                                lineNumber: 562,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -1091,18 +1252,18 @@ function App() {
                                                                     className: "w-4 h-4"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                                    lineNumber: 504,
+                                                                    lineNumber: 566,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/app/page.tsx",
-                                                                lineNumber: 503,
+                                                                lineNumber: 565,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, piece.id, true, {
                                                         fileName: "[project]/audio-processor/app/page.tsx",
-                                                        lineNumber: 491,
+                                                        lineNumber: 553,
                                                         columnNumber: 25
                                                     }, this)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1116,7 +1277,7 @@ function App() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 509,
+                                                            lineNumber: 571,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1127,48 +1288,48 @@ function App() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 510,
+                                                            lineNumber: 572,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 508,
+                                                    lineNumber: 570,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 489,
+                                            lineNumber: 551,
                                             columnNumber: 21
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             className: "text-xs font-mono text-zinc-600",
                                             children: "No stitch list yet. Processing will use the current green region as before."
                                         }, void 0, false, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 514,
+                                            lineNumber: 576,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 476,
+                                    lineNumber: 538,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/audio-processor/app/page.tsx",
-                            lineNumber: 428,
+                            lineNumber: 490,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/audio-processor/app/page.tsx",
-                        lineNumber: 412,
+                        lineNumber: 445,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/audio-processor/app/page.tsx",
-                    lineNumber: 411,
+                    lineNumber: 444,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1185,19 +1346,19 @@ function App() {
                                                 className: "w-5 h-5 mr-2 text-zinc-400"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/app/page.tsx",
-                                                lineNumber: 528,
+                                                lineNumber: 590,
                                                 columnNumber: 17
                                             }, this),
                                             "Loudness Targets"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/app/page.tsx",
-                                        lineNumber: 527,
+                                        lineNumber: 589,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 526,
+                                    lineNumber: 588,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1214,7 +1375,7 @@ function App() {
                                                             children: "Integrated Loudness (LUFS)"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 535,
+                                                            lineNumber: 597,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1222,13 +1383,13 @@ function App() {
                                                             children: typeof lufs === 'number' ? lufs : -27
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 536,
+                                                            lineNumber: 598,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 534,
+                                                    lineNumber: 596,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$slider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Slider"], {
@@ -1241,13 +1402,13 @@ function App() {
                                                     onValueChange: (v)=>setLufs(Array.isArray(v) ? v[0] : v)
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 538,
+                                                    lineNumber: 600,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 533,
+                                            lineNumber: 595,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1261,7 +1422,7 @@ function App() {
                                                             children: "Loudness Range (LRA)"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 549,
+                                                            lineNumber: 611,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1269,13 +1430,13 @@ function App() {
                                                             children: typeof lra === 'number' ? lra : 12
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 550,
+                                                            lineNumber: 612,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 548,
+                                                    lineNumber: 610,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$slider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Slider"], {
@@ -1288,13 +1449,13 @@ function App() {
                                                     onValueChange: (v)=>setLra(Array.isArray(v) ? v[0] : v)
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 552,
+                                                    lineNumber: 614,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 547,
+                                            lineNumber: 609,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1308,7 +1469,7 @@ function App() {
                                                             children: "True Peak (dBTP)"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 563,
+                                                            lineNumber: 625,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1316,13 +1477,13 @@ function App() {
                                                             children: typeof tp === 'number' ? tp : -2
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 564,
+                                                            lineNumber: 626,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 562,
+                                                    lineNumber: 624,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$slider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Slider"], {
@@ -1335,25 +1496,25 @@ function App() {
                                                     onValueChange: (v)=>setTp(Array.isArray(v) ? v[0] : v)
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 566,
+                                                    lineNumber: 628,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 561,
+                                            lineNumber: 623,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 532,
+                                    lineNumber: 594,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/audio-processor/app/page.tsx",
-                            lineNumber: 525,
+                            lineNumber: 587,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Card"], {
@@ -1367,19 +1528,19 @@ function App() {
                                                 className: "w-5 h-5 mr-2 text-zinc-400"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/app/page.tsx",
-                                                lineNumber: 581,
+                                                lineNumber: 643,
                                                 columnNumber: 17
                                             }, this),
                                             "Time, Speed & Fades"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/app/page.tsx",
-                                        lineNumber: 580,
+                                        lineNumber: 642,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 579,
+                                    lineNumber: 641,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1396,7 +1557,7 @@ function App() {
                                                             children: "Playback Speed"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 588,
+                                                            lineNumber: 650,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1407,13 +1568,13 @@ function App() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 589,
+                                                            lineNumber: 651,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 587,
+                                                    lineNumber: 649,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$slider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Slider"], {
@@ -1426,7 +1587,7 @@ function App() {
                                                     onValueChange: (v)=>setSpeed(Array.isArray(v) ? v[0] : v)
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 591,
+                                                    lineNumber: 653,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1434,13 +1595,13 @@ function App() {
                                                     children: "Range: ±30%"
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 598,
+                                                    lineNumber: 660,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 586,
+                                            lineNumber: 648,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1454,7 +1615,7 @@ function App() {
                                                             children: "Fade In"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 603,
+                                                            lineNumber: 665,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1465,13 +1626,13 @@ function App() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 604,
+                                                            lineNumber: 666,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 602,
+                                                    lineNumber: 664,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$slider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Slider"], {
@@ -1484,13 +1645,13 @@ function App() {
                                                     onValueChange: (v)=>setFadeIn(Array.isArray(v) ? v[0] : v)
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 606,
+                                                    lineNumber: 668,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 601,
+                                            lineNumber: 663,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1504,7 +1665,7 @@ function App() {
                                                             children: "Fade Out"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 617,
+                                                            lineNumber: 679,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1515,13 +1676,13 @@ function App() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 618,
+                                                            lineNumber: 680,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 616,
+                                                    lineNumber: 678,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$slider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Slider"], {
@@ -1534,13 +1695,13 @@ function App() {
                                                     onValueChange: (v)=>setFadeOut(Array.isArray(v) ? v[0] : v)
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 620,
+                                                    lineNumber: 682,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 615,
+                                            lineNumber: 677,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1554,7 +1715,7 @@ function App() {
                                                             children: "Output Format"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 632,
+                                                            lineNumber: 694,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1568,7 +1729,7 @@ function App() {
                                                                     children: "WAV"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                                    lineNumber: 634,
+                                                                    lineNumber: 696,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -1579,19 +1740,19 @@ function App() {
                                                                     children: "MP3"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                                    lineNumber: 642,
+                                                                    lineNumber: 704,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 633,
+                                                            lineNumber: 695,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 631,
+                                                    lineNumber: 693,
                                                     columnNumber: 17
                                                 }, this),
                                                 processError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1602,7 +1763,7 @@ function App() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 654,
+                                                    lineNumber: 716,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -1615,7 +1776,7 @@ function App() {
                                                                 className: "w-5 h-5 mr-2 animate-spin"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/app/page.tsx",
-                                                                lineNumber: 665,
+                                                                lineNumber: 727,
                                                                 columnNumber: 23
                                                             }, this),
                                                             "PROCESSING ",
@@ -1625,13 +1786,13 @@ function App() {
                                                     }, void 0, true) : 'PROCESS AUDIO'
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 658,
+                                                    lineNumber: 720,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 630,
+                                            lineNumber: 692,
                                             columnNumber: 15
                                         }, this),
                                         processedUrl && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1645,7 +1806,7 @@ function App() {
                                                             children: "Output Ready"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 678,
+                                                            lineNumber: 740,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -1660,7 +1821,7 @@ function App() {
                                                                     className: "w-4 h-4 mr-2"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                                    lineNumber: 684,
+                                                                    lineNumber: 746,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 "Download ",
@@ -1668,13 +1829,13 @@ function App() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                                            lineNumber: 679,
+                                                            lineNumber: 741,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 677,
+                                                    lineNumber: 739,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("audio", {
@@ -1683,42 +1844,42 @@ function App() {
                                                     className: "w-full"
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                                    lineNumber: 688,
+                                                    lineNumber: 750,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/audio-processor/app/page.tsx",
-                                            lineNumber: 676,
+                                            lineNumber: 738,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/audio-processor/app/page.tsx",
-                                    lineNumber: 585,
+                                    lineNumber: 647,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/audio-processor/app/page.tsx",
-                            lineNumber: 578,
+                            lineNumber: 640,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/audio-processor/app/page.tsx",
-                    lineNumber: 523,
+                    lineNumber: 585,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/audio-processor/app/page.tsx",
-            lineNumber: 380,
+            lineNumber: 413,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/audio-processor/app/page.tsx",
-        lineNumber: 379,
+        lineNumber: 412,
         columnNumber: 5
     }, this);
 }

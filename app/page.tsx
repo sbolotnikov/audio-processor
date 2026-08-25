@@ -9,7 +9,8 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
-import { Upload, Play, Pause, Download, Scissors, Loader2, Settings2, FastForward, Rewind, ListPlus, ArrowUp, ArrowDown, Trash2 } from 'lucide-react';
+import { renderMidiToWav } from '@/lib/midi-client';
+import { Upload, Play, Pause, Download, Scissors, Loader2, Settings2, FastForward, Rewind, ListPlus, ArrowUp, ArrowDown, Trash2, Youtube } from 'lucide-react';
 
 type AudioPiece = {
   id: string;
@@ -36,6 +37,11 @@ export default function App() {
   const [file, setFile] = useState<File | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [processedUrl, setProcessedUrl] = useState<string | null>(null);
+  const [youtubeUrl, setYoutubeUrl] = useState('');
+  const [isExtractingYoutube, setIsExtractingYoutube] = useState(false);
+  const [youtubeError, setYoutubeError] = useState<string | null>(null);
+  const [isRenderingMidi, setIsRenderingMidi] = useState(false);
+  const [isMidiSource, setIsMidiSource] = useState(false);
   
   // Playback & Processing State
   const [isPlaying, setIsPlaying] = useState(false);
@@ -226,13 +232,59 @@ export default function App() {
   /**
    * Handle user file selection
    */
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const loadAudioFile = (nextFile: File, fromMidi = false) => {
+    setFile(nextFile);
+    setIsMidiSource(fromMidi);
+    setAudioUrl(URL.createObjectURL(nextFile));
+    setProcessedUrl(null);
+    setPieces([]);
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
-      setFile(selectedFile);
-      setAudioUrl(URL.createObjectURL(selectedFile));
-      setProcessedUrl(null); // Reset previous output
-      setPieces([]);
+      const isMidi = /\.(?:mid|midi)$/i.test(selectedFile.name) || selectedFile.type === 'audio/midi';
+      if (!isMidi) return loadAudioFile(selectedFile);
+      setIsRenderingMidi(true);
+      setProcessError(null);
+      try {
+        const wav = await renderMidiToWav(selectedFile);
+        const baseName = selectedFile.name.replace(/\.(?:mid|midi)$/i, '');
+        loadAudioFile(new File([wav], `${baseName}.wav`, { type: 'audio/wav' }), true);
+        setOutputFormat('mp3');
+      } catch (error) {
+        setProcessError(error instanceof Error ? error.message : 'Unable to render this MIDI file.');
+      } finally {
+        setIsRenderingMidi(false);
+        e.target.value = '';
+      }
+    }
+  };
+
+  const importFromYoutube = async () => {
+    if (!youtubeUrl.trim() || isExtractingYoutube) return;
+    setIsExtractingYoutube(true);
+    setYoutubeError(null);
+    try {
+      const response = await fetch('/api/youtube/extract', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: youtubeUrl }),
+      });
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || 'YouTube extraction failed.');
+      }
+      const titleHeader = response.headers.get('X-Video-Title');
+      const title = titleHeader ? decodeURIComponent(titleHeader) : 'youtube-audio';
+      const extension = response.headers.get('X-Audio-Extension') || 'webm';
+      const blob = await response.blob();
+      const importedFile = new File([blob], `${title.replace(/[<>:"/\\|?*]/g, '').slice(0, 120)}.${extension}`, { type: blob.type });
+      loadAudioFile(importedFile);
+    } catch (error) {
+      setYoutubeError(error instanceof Error ? error.message : 'Unable to import this video.');
+    } finally {
+      setIsExtractingYoutube(false);
     }
   };
 
@@ -315,7 +367,9 @@ export default function App() {
       const safeLufs = typeof lufs === 'number' ? lufs : -27;
       const safeLra = typeof lra === 'number' ? lra : 12;
       const safeTp = typeof tp === 'number' ? tp : -2;
-      filters.push(`loudnorm=I=${safeLufs}:LRA=${safeLra}:TP=${safeTp}`);
+      // MIDI has already been rendered with controlled gain. Running loudnorm
+      // over a synthesized WAV makes browser MP3 encoding unnecessarily slow.
+      if (!isMidiSource) filters.push(`loudnorm=I=${safeLufs}:LRA=${safeLra}:TP=${safeTp}`);
 
       // 4. Fades (afade)
       // Calculate final duration to accurately place the fade-out
@@ -343,7 +397,7 @@ export default function App() {
       );
       const pieceInputs = selectedPieces.map((_, index) => `[p${index}]`).join('');
       const concatFilter = `${pieceInputs}concat=n=${selectedPieces.length}:v=0:a=1[stitched]`;
-      const manipulationFilter = `[stitched]${filters.join(',')}[processed]`;
+      const manipulationFilter = `[stitched]${filters.length ? filters.join(',') : 'anull'}[processed]`;
       args.push('-filter_complex', [...trimFilters, concatFilter, manipulationFilter].join(';'), '-map', '[processed]');
       
       // 5. Encoding Options
@@ -411,17 +465,48 @@ export default function App() {
         <Card className="bg-[#1C1D21] border-zinc-800">
           <CardContent className="p-6 space-y-6">
             {!file ? (
-              // File Upload Dropzone
-              <div className="border-2 border-dashed border-zinc-700 rounded-lg p-12 text-center hover:border-zinc-500 transition-colors cursor-pointer relative">
-                <input 
-                  type="file" 
-                  accept="audio/*" 
-                  onChange={handleFileUpload}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                />
-                <Upload className="w-12 h-12 mx-auto text-zinc-500 mb-4" />
-                <p className="text-zinc-300 font-medium">Drop audio file here or click to browse</p>
-                <p className="text-zinc-500 text-sm mt-2">Supports WAV, MP3, AAC, FLAC</p>
+              <div className="space-y-5">
+                <div className="rounded-lg border border-zinc-700 bg-black/20 p-5">
+                  <div className="mb-3 flex items-center gap-2 text-sm font-medium text-zinc-200">
+                    <Youtube className="h-5 w-5 text-red-500" />
+                    Import audio from YouTube
+                  </div>
+                  <div className="flex flex-col gap-3 sm:flex-row">
+                    <input
+                      type="url"
+                      value={youtubeUrl}
+                      onChange={(event) => setYoutubeUrl(event.target.value)}
+                      onKeyDown={(event) => event.key === 'Enter' && importFromYoutube()}
+                      placeholder="Paste a YouTube, Shorts, or Music URL"
+                      disabled={isExtractingYoutube}
+                      className="h-10 flex-1 rounded-md border border-zinc-700 bg-[#151619] px-3 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-zinc-500"
+                    />
+                    <Button onClick={importFromYoutube} disabled={!youtubeUrl.trim() || isExtractingYoutube}>
+                      {isExtractingYoutube ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
+                      {isExtractingYoutube ? 'Extracting…' : 'Import audio'}
+                    </Button>
+                  </div>
+                  {youtubeError && <p className="mt-3 text-xs text-red-400">{youtubeError}</p>}
+                  <p className="mt-3 text-xs text-zinc-500">Only download content you own or have permission to use.</p>
+                </div>
+
+                <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-zinc-600">
+                  <span className="h-px flex-1 bg-zinc-800" />or upload a file<span className="h-px flex-1 bg-zinc-800" />
+                </div>
+
+                <div className="border-2 border-dashed border-zinc-700 rounded-lg p-12 text-center hover:border-zinc-500 transition-colors cursor-pointer relative">
+                  <input 
+                    type="file" 
+                    accept="audio/*,.mid,.midi,audio/midi,audio/x-midi" 
+                    onChange={handleFileUpload}
+                    disabled={isRenderingMidi}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  />
+                  {isRenderingMidi ? <Loader2 className="w-12 h-12 mx-auto text-zinc-500 mb-4 animate-spin" /> : <Upload className="w-12 h-12 mx-auto text-zinc-500 mb-4" />}
+                  <p className="text-zinc-300 font-medium">{isRenderingMidi ? 'Rendering MIDI instruments…' : 'Drop audio or MIDI here, or click to browse'}</p>
+                  <p className="text-zinc-500 text-sm mt-2">Supports WAV, MP3, AAC, FLAC, MID, MIDI</p>
+                </div>
+                {processError && !file && <p className="text-xs text-red-400">{processError}</p>}
               </div>
             ) : (
               // Active Audio Player
@@ -432,6 +517,7 @@ export default function App() {
                   </div>
                   <Button variant="outline" size="sm" onClick={() => {
                     setFile(null);
+                    setIsMidiSource(false);
                     setAudioUrl(null);
                     setProcessedUrl(null);
                     setPieces([]);
