@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { SlidersHorizontal, Youtube } from 'lucide-react';
+import { Globe2, SlidersHorizontal, Youtube } from 'lucide-react';
 
 export function SiteNavigation({ accent = 'green' }: { accent?: 'green' | 'orange' }) {
   const pathname = usePathname();
@@ -12,6 +12,7 @@ export function SiteNavigation({ accent = 'green' }: { accent?: 'green' | 'orang
   const items = [
     { href: '/', label: 'Audio Editor', icon: SlidersHorizontal, active: pathname === '/' },
     { href: '/youtubelink', label: 'YouTube Converter', icon: Youtube, active: pathname.startsWith('/youtubelink') },
+    { href: '/medialink', label: 'Other Sites', icon: Globe2, active: pathname.startsWith('/medialink') },
   ];
 
   return (

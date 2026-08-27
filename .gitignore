@@ -1,7 +1,12 @@
 node_modules/
+.next/
+out/
 build/
 dist/
 coverage/
+bin/*.exe
+*.tsbuildinfo
+temp_downloads/
 .DS_Store
 *.log
 .env*

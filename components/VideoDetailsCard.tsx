@@ -121,7 +121,7 @@ export const VideoDetailsCard: React.FC<VideoDetailsCardProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             className="absolute top-2.5 right-2.5 p-1.5 rounded-lg bg-black/70 hover:bg-black text-white/80 hover:text-white transition"
-            title="Open on YouTube"
+            title="Open source video"
           >
             <ExternalLink className="w-3.5 h-3.5" />
           </a>

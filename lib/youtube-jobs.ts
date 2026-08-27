@@ -11,6 +11,7 @@ type ConvertRequest = {
   startTime?: number; endTime?: number; normalizeAudio?: boolean; fadeInOut?: boolean;
   outputType?: 'audio' | 'video';
   videoQuality?: 'best' | '1080' | '720' | '480' | '360';
+  sourceKind?: 'youtube' | 'media';
 };
 type StoredJob = ConversionJob & { filePath?: string; mimeType?: string };
 type Registry = { jobs: Map<string, StoredJob>; cleanupStarted: boolean };
@@ -80,8 +81,49 @@ export async function videoInfo(url: string): Promise<VideoMetadata> {
   };
 }
 
+const supportedMediaHosts = [
+  'vk.com', 'vkvideo.ru', 'rutube.ru', 'vimeo.com', 'dailymotion.com', 'tiktok.com',
+  'twitch.tv', 'soundcloud.com', 'facebook.com', 'instagram.com', 'x.com', 'twitter.com',
+];
+
+function validateMediaUrl(rawUrl: string) {
+  let parsed: URL;
+  try { parsed = new URL(rawUrl); } catch { throw new Error('Enter a valid media URL.'); }
+  if (!['https:', 'http:'].includes(parsed.protocol)) throw new Error('Only HTTP and HTTPS links are supported.');
+  const host = parsed.hostname.toLowerCase().replace(/^www\./, '');
+  if (!supportedMediaHosts.some((allowed) => host === allowed || host.endsWith(`.${allowed}`))) {
+    throw new Error(`Unsupported site: ${host}. Try VK, Rutube, Vimeo, Dailymotion, TikTok, Twitch, SoundCloud, Facebook, Instagram, or X.`);
+  }
+  return parsed.toString();
+}
+
+export async function mediaInfo(rawUrl: string): Promise<VideoMetadata> {
+  const url = validateMediaUrl(rawUrl);
+  let json = '';
+  await run(executable('yt-dlp'), ['--dump-single-json', '--skip-download', '--no-playlist', '--no-warnings', url], (line) => {
+    if (line.trim().startsWith('{')) json = line;
+  });
+  if (!json) throw new Error('The site did not return usable video information. The media may be private or DRM-protected.');
+  const detail = JSON.parse(json);
+  const duration = Number(detail.duration) || 0;
+  return {
+    id: detail.id || crypto.randomUUID(), url: detail.webpage_url || url,
+    title: detail.title || 'Untitled media', artist: detail.artist || detail.uploader || detail.channel || new URL(url).hostname,
+    album: detail.album || 'Downloaded Media', channel: detail.channel || detail.uploader || new URL(url).hostname,
+    channelUrl: detail.channel_url || detail.uploader_url, duration, durationFormatted: durationLabel(duration),
+    thumbnail: detail.thumbnail || '', viewCount: Number(detail.view_count) || 0,
+    uploadDate: detail.upload_date ? `${detail.upload_date.slice(0, 4)}-${detail.upload_date.slice(4, 6)}-${detail.upload_date.slice(6, 8)}` : undefined,
+    description: detail.description?.slice(0, 300), formats: formats(duration),
+  };
+}
+
+export async function startMediaJob(request: ConvertRequest) {
+  const url = validateMediaUrl(request.url);
+  return startYouTubeJob({ ...request, url, sourceKind: 'media' });
+}
+
 export async function startYouTubeJob(request: ConvertRequest) {
-  normalizeYouTubeUrl(request.url);
+  if (request.sourceKind !== 'media') normalizeYouTubeUrl(request.url);
   const id = crypto.randomUUID();
   const isVideo = request.outputType === 'video';
   const job: StoredJob = {
@@ -100,7 +142,7 @@ async function execute(job: StoredJob, request: ConvertRequest) {
   try {
     await mkdir(directory, { recursive: true });
     job.status = 'fetching'; job.progress = 12; job.stageMessage = 'Reading video metadata…';
-    const metadata = await videoInfo(request.url);
+    const metadata = request.sourceKind === 'media' ? await mediaInfo(request.url) : await videoInfo(request.url);
     job.metadata = metadata; job.videoTitle = request.title?.trim() || metadata.title;
     const artist = request.artist?.trim() || metadata.artist;
     const album = request.album?.trim() || metadata.album || 'YouTube Audio';
