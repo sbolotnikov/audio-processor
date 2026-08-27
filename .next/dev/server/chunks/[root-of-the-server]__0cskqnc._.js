@@ -132,11 +132,10 @@ async function getYouTubeInfo(rawUrl) {
     };
 }
 function ytDlpInvocation() {
-    if (process.env.YT_DLP_PATH) return {
-        command: process.env.YT_DLP_PATH,
-        prefixArgs: []
-    };
-    const binDirectory = __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(process.cwd(), 'youtube-to-mp3-converter', 'bin');
+    const configuredPath = process.env.YT_DLP_PATH?.trim();
+    // A bare command is only useful when it really exists on PATH. Prefer the
+    // app-bundled executable so copied example env files cannot cause ENOENT.
+    const binDirectory = __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(process.cwd(), 'bin');
     const windowsExecutable = __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(binDirectory, 'yt-dlp.exe');
     if (process.platform === 'win32' && (0, __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$fs__$5b$external$5d$__$28$node$3a$fs$2c$__cjs$29$__["existsSync"])(windowsExecutable)) {
         return {
@@ -151,10 +150,11 @@ function ytDlpInvocation() {
             prefixArgs: []
         };
     }
-    return {
-        command: 'yt-dlp',
+    if (configuredPath) return {
+        command: configuredPath,
         prefixArgs: []
     };
+    throw new Error('yt-dlp is not installed. Add the platform executable to the app bin folder or set YT_DLP_PATH.');
 }
 async function extractYouTubeAudio(rawUrl) {
     const info = await getYouTubeInfo(rawUrl);

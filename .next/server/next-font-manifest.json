@@ -1,7 +1,8 @@
 {
   "app": {
     "[project]/audio-processor/app/_not-found/page": [],
-    "[project]/audio-processor/app/page": []
+    "[project]/audio-processor/app/page": [],
+    "[project]/audio-processor/app/youtubelink/page": []
   },
   "appUsingSizeAdjust": false,
   "pages": {},

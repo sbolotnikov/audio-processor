@@ -39,7 +39,9 @@ A full-featured, client-side audio processing application built with Next.js, Re
 
 ## Development
 
-YouTube importing uses a Next.js server route and therefore requires a server-backed deployment. Platform-specific `yt-dlp` binaries are bundled in `youtube-to-mp3-converter/bin`. The original audio stream is loaded into the editor, so system FFmpeg is not required; local editing and MP3/WAV export still use FFmpeg.wasm in the browser.
+YouTube importing uses a Next.js server route and therefore requires a server-backed deployment. Put the platform-specific `yt-dlp` executable in the root `bin` folder (`bin/yt-dlp.exe` on Windows or `bin/yt-dlp` on Linux), or configure its absolute location with `YT_DLP_PATH`. The original audio stream is loaded into the editor, so system FFmpeg is not required; local editing and MP3/WAV export still use FFmpeg.wasm in the browser.
+
+The `/youtubelink` converter uses the same extractor plus server FFmpeg (`bin/ffmpeg.exe`, `bin/ffmpeg`, or `FFMPEG_PATH`) to create real MP3 files. Its in-memory progress and temporary downloads require a persistent Node server; serverless instances may not preserve jobs between requests.
 
 ```bash
 # Install dependencies

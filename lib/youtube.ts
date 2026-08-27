@@ -33,8 +33,10 @@ export async function getYouTubeInfo(rawUrl: string) {
 }
 
 function ytDlpInvocation() {
-  if (process.env.YT_DLP_PATH) return { command: process.env.YT_DLP_PATH, prefixArgs: [] as string[] };
-  const binDirectory = path.join(process.cwd(), 'youtube-to-mp3-converter', 'bin');
+  const configuredPath = process.env.YT_DLP_PATH?.trim();
+  // A bare command is only useful when it really exists on PATH. Prefer the
+  // app-bundled executable so copied example env files cannot cause ENOENT.
+  const binDirectory = path.join(process.cwd(), 'bin');
   const windowsExecutable = path.join(binDirectory, 'yt-dlp.exe');
   if (process.platform === 'win32' && existsSync(windowsExecutable)) {
     return { command: windowsExecutable, prefixArgs: [] as string[] };
@@ -43,7 +45,8 @@ function ytDlpInvocation() {
   if (existsSync(bundled)) {
     return { command: bundled, prefixArgs: [] as string[] };
   }
-  return { command: 'yt-dlp', prefixArgs: [] as string[] };
+  if (configuredPath) return { command: configuredPath, prefixArgs: [] as string[] };
+  throw new Error('yt-dlp is not installed. Add the platform executable to the app bin folder or set YT_DLP_PATH.');
 }
 
 export async function extractYouTubeAudio(rawUrl: string) {

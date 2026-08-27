@@ -36,7 +36,32 @@
     "afterFiles": [],
     "fallback": []
   },
-  "dynamicRoutes": [],
+  "dynamicRoutes": [
+    {
+      "page": "/api/download/[jobId]",
+      "regex": "^/api/download/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPjobId": "nxtPjobId"
+      },
+      "namedRegex": "^/api/download/(?<nxtPjobId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/progress/[jobId]",
+      "regex": "^/api/progress/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPjobId": "nxtPjobId"
+      },
+      "namedRegex": "^/api/progress/(?<nxtPjobId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/stream/[jobId]",
+      "regex": "^/api/stream/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPjobId": "nxtPjobId"
+      },
+      "namedRegex": "^/api/stream/(?<nxtPjobId>[^/]+?)(?:/)?$"
+    }
+  ],
   "staticRoutes": [
     {
       "page": "/",
@@ -55,6 +80,24 @@
       "regex": "^/_not\\-found(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/api/convert",
+      "regex": "^/api/convert(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/convert(?:/)?$"
+    },
+    {
+      "page": "/api/history",
+      "regex": "^/api/history(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/history(?:/)?$"
+    },
+    {
+      "page": "/api/info",
+      "regex": "^/api/info(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/info(?:/)?$"
     },
     {
       "page": "/api/youtube/extract",
@@ -79,6 +122,12 @@
       "regex": "^/icon(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/icon(?:/)?$"
+    },
+    {
+      "page": "/youtubelink",
+      "regex": "^/youtubelink(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/youtubelink(?:/)?$"
     }
   ],
   "dataRoutes": [],

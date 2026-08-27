@@ -1,26 +1,42 @@
 [
   {
     "route": "/",
-    "firstLoadUncompressedJsBytes": 636501,
+    "firstLoadUncompressedJsBytes": 647887,
     "firstLoadChunkPaths": [
-      ".next\\static\\chunks\\13do99qpz7lnn.js",
-      ".next\\static\\chunks\\085t7yqj0l68z.js",
-      ".next\\static\\chunks\\0uxy1590~va6f.js",
-      ".next\\static\\chunks\\0d1i~i1c8.~ze.js",
-      ".next\\static\\chunks\\0je0r6atasx6i.js",
+      ".next\\static\\chunks\\13~42kze5csgk.js",
+      ".next\\static\\chunks\\11_ad6k-s7oo8.js",
+      ".next\\static\\chunks\\0v62r7d8-ap0p.js",
+      ".next\\static\\chunks\\0xbrsy8ukukfp.js",
+      ".next\\static\\chunks\\0j2496k1pofif.js",
+      ".next\\static\\chunks\\0egf.rthnljlg.js",
       ".next\\static\\chunks\\0q04y~v2f.ytd.js",
-      ".next\\static\\chunks\\turbopack-0l3d-s5mk7eo5.js"
+      ".next\\static\\chunks\\turbopack-17249beigpv8g.js"
+    ]
+  },
+  {
+    "route": "/youtubelink",
+    "firstLoadUncompressedJsBytes": 570968,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\13~42kze5csgk.js",
+      ".next\\static\\chunks\\11_ad6k-s7oo8.js",
+      ".next\\static\\chunks\\0iexkrt1tqhce.js",
+      ".next\\static\\chunks\\0e73m_76e7li-.js",
+      ".next\\static\\chunks\\0j2496k1pofif.js",
+      ".next\\static\\chunks\\0egf.rthnljlg.js",
+      ".next\\static\\chunks\\0q04y~v2f.ytd.js",
+      ".next\\static\\chunks\\turbopack-17249beigpv8g.js"
     ]
   },
   {
     "route": "/_not-found",
-    "firstLoadUncompressedJsBytes": 513604,
+    "firstLoadUncompressedJsBytes": 513718,
     "firstLoadChunkPaths": [
-      ".next\\static\\chunks\\13do99qpz7lnn.js",
-      ".next\\static\\chunks\\0d1i~i1c8.~ze.js",
-      ".next\\static\\chunks\\0je0r6atasx6i.js",
+      ".next\\static\\chunks\\13~42kze5csgk.js",
+      ".next\\static\\chunks\\11_ad6k-s7oo8.js",
+      ".next\\static\\chunks\\0j2496k1pofif.js",
+      ".next\\static\\chunks\\0egf.rthnljlg.js",
       ".next\\static\\chunks\\0q04y~v2f.ytd.js",
-      ".next\\static\\chunks\\turbopack-0l3d-s5mk7eo5.js"
+      ".next\\static\\chunks\\turbopack-17249beigpv8g.js"
     ]
   }
 ]

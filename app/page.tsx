@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { renderMidiToWav } from '@/lib/midi-client';
+import { SiteNavigation } from '@/components/SiteNavigation';
 import { Upload, Play, Pause, Download, Scissors, Loader2, Settings2, FastForward, Rewind, ListPlus, ArrowUp, ArrowDown, Trash2, Youtube } from 'lucide-react';
 
 type AudioPiece = {
@@ -433,11 +434,12 @@ export default function App() {
     <div className="min-h-screen bg-[#151619] text-white p-8 font-sans">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Header Section */}
-        <header className="flex items-center justify-between">
+        <header className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Audio Processor</h1>
             <p className="text-zinc-400 font-mono text-sm mt-1">Loudness Normalization & Editing</p>
           </div>
+          <SiteNavigation />
           {/* FFmpeg Loading Status */}
           {!isFfmpegLoaded && !engineError && (
             <div className="flex items-center text-zinc-400 font-mono text-xs">
