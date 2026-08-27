@@ -317,17 +317,20 @@ async function videoInfo(url) {
 async function startYouTubeJob(request) {
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$lib$2f$youtube$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["normalizeYouTubeUrl"])(request.url);
     const id = crypto.randomUUID();
+    const isVideo = request.outputType === 'video';
     const job = {
         id,
         url: request.url,
-        videoTitle: 'YouTube audio',
-        finalFileName: 'audio.mp3',
+        videoTitle: 'YouTube media',
+        finalFileName: isVideo ? 'video.mp4' : 'audio.mp3',
         status: 'queued',
+        outputType: isVideo ? 'video' : 'audio',
         progress: 5,
         stageMessage: 'Queued for extraction…',
         bitrate: request.bitrate || '320k',
         createdAt: Date.now()
     };
+    if (isVideo) job.bitrate = request.videoQuality === 'best' ? 'best' : `${request.videoQuality || '720'}p`;
     registry.jobs.set(id, job);
     void execute(job, request);
     return job;
@@ -346,6 +349,10 @@ async function execute(job, request) {
         job.videoTitle = request.title?.trim() || metadata.title;
         const artist = request.artist?.trim() || metadata.artist;
         const album = request.album?.trim() || metadata.album || 'YouTube Audio';
+        if (request.outputType === 'video') {
+            await executeVideo(job, request, metadata, artist, directory);
+            return;
+        }
         job.status = 'downloading';
         job.progress = 25;
         job.stageMessage = 'Downloading the best audio stream…';
@@ -412,6 +419,73 @@ async function execute(job, request) {
         job.error = error instanceof Error ? error.message : String(error);
         job.stageMessage = 'Conversion failed.';
     }
+}
+async function executeVideo(job, request, metadata, artist, directory) {
+    job.status = 'downloading';
+    job.progress = 25;
+    job.stageMessage = 'Downloading video and audio streams...';
+    const sourceTemplate = __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(directory, 'source.%(ext)s');
+    const heightFilter = request.videoQuality && request.videoQuality !== 'best' ? `[height<=${request.videoQuality}]` : '';
+    const videoFormat = `bestvideo${heightFilter}[ext=mp4]+bestaudio[ext=m4a]/bestvideo${heightFilter}+bestaudio/best${heightFilter}[ext=mp4]/best${heightFilter}`;
+    await run(executable('yt-dlp'), [
+        '--no-playlist',
+        '--newline',
+        '--no-warnings',
+        '--format',
+        videoFormat,
+        '--merge-output-format',
+        'mp4',
+        '--ffmpeg-location',
+        __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].dirname(executable('ffmpeg')),
+        '--progress-template',
+        'download:%(progress._percent_str)s',
+        '--output',
+        sourceTemplate,
+        metadata.url
+    ], (line)=>{
+        const match = line.match(/download:\s*([\d.]+)%/);
+        if (match) job.progress = Math.min(76, 25 + Math.round(Number(match[1]) * 0.51));
+    });
+    const sourceName = (await (0, __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$fs$2f$promises__$5b$external$5d$__$28$node$3a$fs$2f$promises$2c$__cjs$29$__["readdir"])(directory)).find((name)=>name.startsWith('source.'));
+    if (!sourceName) throw new Error('No video file was downloaded.');
+    const sourcePath = __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(directory, sourceName);
+    const outputPath = __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(directory, 'output.mp4');
+    job.status = 'converting';
+    job.progress = 82;
+    job.stageMessage = 'Finalizing MP4 video...';
+    const args = [
+        '-y'
+    ];
+    if (request.startTime && request.startTime > 0) args.push('-ss', String(request.startTime));
+    args.push('-i', sourcePath);
+    if (request.endTime && request.endTime > 0) {
+        const length = request.endTime - (request.startTime || 0);
+        if (length > 0) args.push('-t', String(length));
+    }
+    const filters = [];
+    if (request.normalizeAudio) filters.push('loudnorm=I=-16:TP=-1.5:LRA=11');
+    if (request.fadeInOut) {
+        filters.push('afade=t=in:st=0:d=1.5');
+        const length = Math.max(0, (request.endTime || metadata.duration) - (request.startTime || 0));
+        if (length > 1.5) filters.push(`afade=t=out:st=${Math.max(0, length - 1.5)}:d=1.5`);
+    }
+    if (filters.length) args.push('-af', filters.join(','));
+    args.push('-map', '0:v:0', '-map', '0:a:0?', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-metadata', `title=${job.videoTitle}`, '-metadata', `artist=${artist}`, outputPath);
+    await run(executable('ffmpeg'), args);
+    job.progress = 96;
+    job.status = 'tagging';
+    job.stageMessage = 'Finalizing MP4 metadata...';
+    job.filePath = outputPath;
+    job.mimeType = 'video/mp4';
+    job.fileSize = (await (0, __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$fs$2f$promises__$5b$external$5d$__$28$node$3a$fs$2f$promises$2c$__cjs$29$__["stat"])(outputPath)).size;
+    job.finalFileName = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$lib$2f$youtube$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["safeAudioName"])(`${artist} - ${job.videoTitle}`, 'mp4');
+    job.status = 'completed';
+    job.progress = 100;
+    job.completedAt = Date.now();
+    job.stageMessage = 'Video ready to play and download.';
+    await (0, __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$fs$2f$promises__$5b$external$5d$__$28$node$3a$fs$2f$promises$2c$__cjs$29$__["rm"])(sourcePath, {
+        force: true
+    });
 }
 function getYouTubeJob(id) {
     return registry.jobs.get(id);

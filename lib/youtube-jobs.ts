@@ -9,6 +9,8 @@ import { getYouTubeInfo, normalizeYouTubeUrl, safeAudioName } from '@/lib/youtub
 type ConvertRequest = {
   url: string; bitrate?: string; title?: string; artist?: string; album?: string;
   startTime?: number; endTime?: number; normalizeAudio?: boolean; fadeInOut?: boolean;
+  outputType?: 'audio' | 'video';
+  videoQuality?: 'best' | '1080' | '720' | '480' | '360';
 };
 type StoredJob = ConversionJob & { filePath?: string; mimeType?: string };
 type Registry = { jobs: Map<string, StoredJob>; cleanupStarted: boolean };
@@ -81,10 +83,13 @@ export async function videoInfo(url: string): Promise<VideoMetadata> {
 export async function startYouTubeJob(request: ConvertRequest) {
   normalizeYouTubeUrl(request.url);
   const id = crypto.randomUUID();
+  const isVideo = request.outputType === 'video';
   const job: StoredJob = {
-    id, url: request.url, videoTitle: 'YouTube audio', finalFileName: 'audio.mp3', status: 'queued',
+    id, url: request.url, videoTitle: 'YouTube media', finalFileName: isVideo ? 'video.mp4' : 'audio.mp3', status: 'queued',
+    outputType: isVideo ? 'video' : 'audio',
     progress: 5, stageMessage: 'Queued for extraction…', bitrate: request.bitrate || '320k', createdAt: Date.now(),
   };
+  if (isVideo) job.bitrate = request.videoQuality === 'best' ? 'best' : `${request.videoQuality || '720'}p`;
   registry.jobs.set(id, job);
   void execute(job, request);
   return job;
@@ -99,6 +104,10 @@ async function execute(job: StoredJob, request: ConvertRequest) {
     job.metadata = metadata; job.videoTitle = request.title?.trim() || metadata.title;
     const artist = request.artist?.trim() || metadata.artist;
     const album = request.album?.trim() || metadata.album || 'YouTube Audio';
+    if (request.outputType === 'video') {
+      await executeVideo(job, request, metadata, artist, directory);
+      return;
+    }
 
     job.status = 'downloading'; job.progress = 25; job.stageMessage = 'Downloading the best audio stream…';
     const sourceTemplate = path.join(directory, 'source.%(ext)s');
@@ -144,6 +153,52 @@ async function execute(job: StoredJob, request: ConvertRequest) {
     job.status = 'error'; job.progress = 100; job.error = error instanceof Error ? error.message : String(error);
     job.stageMessage = 'Conversion failed.';
   }
+}
+
+async function executeVideo(job: StoredJob, request: ConvertRequest, metadata: VideoMetadata, artist: string, directory: string) {
+  job.status = 'downloading'; job.progress = 25; job.stageMessage = 'Downloading video and audio streams...';
+  const sourceTemplate = path.join(directory, 'source.%(ext)s');
+  const heightFilter = request.videoQuality && request.videoQuality !== 'best' ? `[height<=${request.videoQuality}]` : '';
+  const videoFormat = `bestvideo${heightFilter}[ext=mp4]+bestaudio[ext=m4a]/bestvideo${heightFilter}+bestaudio/best${heightFilter}[ext=mp4]/best${heightFilter}`;
+  await run(executable('yt-dlp'), [
+    '--no-playlist', '--newline', '--no-warnings',
+    '--format', videoFormat,
+    '--merge-output-format', 'mp4', '--ffmpeg-location', path.dirname(executable('ffmpeg')),
+    '--progress-template', 'download:%(progress._percent_str)s', '--output', sourceTemplate, metadata.url,
+  ], (line) => {
+    const match = line.match(/download:\s*([\d.]+)%/);
+    if (match) job.progress = Math.min(76, 25 + Math.round(Number(match[1]) * 0.51));
+  });
+  const sourceName = (await readdir(directory)).find((name) => name.startsWith('source.'));
+  if (!sourceName) throw new Error('No video file was downloaded.');
+  const sourcePath = path.join(directory, sourceName);
+  const outputPath = path.join(directory, 'output.mp4');
+
+  job.status = 'converting'; job.progress = 82; job.stageMessage = 'Finalizing MP4 video...';
+  const args = ['-y'];
+  if (request.startTime && request.startTime > 0) args.push('-ss', String(request.startTime));
+  args.push('-i', sourcePath);
+  if (request.endTime && request.endTime > 0) {
+    const length = request.endTime - (request.startTime || 0);
+    if (length > 0) args.push('-t', String(length));
+  }
+  const filters: string[] = [];
+  if (request.normalizeAudio) filters.push('loudnorm=I=-16:TP=-1.5:LRA=11');
+  if (request.fadeInOut) {
+    filters.push('afade=t=in:st=0:d=1.5');
+    const length = Math.max(0, (request.endTime || metadata.duration) - (request.startTime || 0));
+    if (length > 1.5) filters.push(`afade=t=out:st=${Math.max(0, length - 1.5)}:d=1.5`);
+  }
+  if (filters.length) args.push('-af', filters.join(','));
+  args.push('-map', '0:v:0', '-map', '0:a:0?', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart',
+    '-metadata', `title=${job.videoTitle}`, '-metadata', `artist=${artist}`, outputPath);
+  await run(executable('ffmpeg'), args);
+
+  job.progress = 96; job.status = 'tagging'; job.stageMessage = 'Finalizing MP4 metadata...';
+  job.filePath = outputPath; job.mimeType = 'video/mp4'; job.fileSize = (await stat(outputPath)).size;
+  job.finalFileName = safeAudioName(`${artist} - ${job.videoTitle}`, 'mp4');
+  job.status = 'completed'; job.progress = 100; job.completedAt = Date.now(); job.stageMessage = 'Video ready to play and download.';
+  await rm(sourcePath, { force: true });
 }
 
 export function getYouTubeJob(id: string) { return registry.jobs.get(id); }

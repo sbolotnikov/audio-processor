@@ -7,6 +7,7 @@ interface UrlInputSectionProps {
   onFetch: (customUrl?: string) => void;
   isLoading: boolean;
   error?: string | null;
+  outputType: 'audio' | 'video';
 }
 
 const SAMPLE_VIDEOS = [
@@ -33,6 +34,7 @@ export const UrlInputSection: React.FC<UrlInputSectionProps> = ({
   onFetch,
   isLoading,
   error,
+  outputType,
 }) => {
   const [pasteSuccess, setPasteSuccess] = useState(false);
 
@@ -131,7 +133,7 @@ export const UrlInputSection: React.FC<UrlInputSectionProps> = ({
                 </>
               ) : (
                 <>
-                  <span>Extract MP3</span>
+                  <span>{outputType === 'video' ? 'Extract MP4' : 'Extract MP3'}</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}

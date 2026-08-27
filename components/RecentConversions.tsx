@@ -29,7 +29,7 @@ export const RecentConversions: React.FC<RecentConversionsProps> = ({
             </div>
             <div>
               <h3 className="text-base font-bold text-white">
-                Downloaded MP3 Tracks
+                Recent Downloads
               </h3>
               <p className="text-xs text-[#8E9299]">
                 {history.length} {history.length === 1 ? 'file' : 'files'} converted in this session
@@ -53,7 +53,7 @@ export const RecentConversions: React.FC<RecentConversionsProps> = ({
               <Music className="w-10 h-10 mx-auto text-[#5A5E66] stroke-1" />
               <p>No downloads yet in this session.</p>
               <p className="text-xs text-[#5A5E66]">
-                Paste any YouTube video link to extract high-quality MP3 audio!
+                Paste a YouTube link to download MP3 audio or MP4 video.
               </p>
             </div>
           ) : (
@@ -84,7 +84,7 @@ export const RecentConversions: React.FC<RecentConversionsProps> = ({
                       {item.artist}
                     </p>
                     <div className="flex items-center gap-2 text-[10px] text-[#5A5E66] mt-0.5">
-                      <span className="font-mono text-[#F27D26] font-semibold uppercase">{item.bitrate}</span>
+                      <span className="font-mono text-[#F27D26] font-semibold uppercase">{item.outputType === 'video' ? 'MP4' : item.bitrate}</span>
                       <span>•</span>
                       <span>{item.durationFormatted}</span>
                       {item.fileSize && (
@@ -103,7 +103,7 @@ export const RecentConversions: React.FC<RecentConversionsProps> = ({
                     href={item.downloadUrl}
                     download
                     className="p-2 rounded-xl bg-[#F27D26]/15 hover:bg-[#F27D26]/25 text-[#F27D26] hover:text-white border border-[#F27D26]/30 transition text-xs flex items-center gap-1 font-medium cursor-pointer"
-                    title="Download MP3"
+                    title={`Download ${item.outputType === 'video' ? 'MP4 video' : 'MP3 audio'}`}
                   >
                     <Download className="w-3.5 h-3.5" />
                   </a>

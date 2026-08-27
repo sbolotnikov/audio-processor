@@ -34,6 +34,7 @@ export interface ConversionJob {
   progress: number;
   stageMessage: string;
   bitrate: string;
+  outputType?: 'audio' | 'video';
   filePath?: string;
   fileSize?: number;
   error?: string;
@@ -50,6 +51,7 @@ export interface HistoryItem {
   thumbnail: string;
   durationFormatted: string;
   bitrate: string;
+  outputType?: 'audio' | 'video';
   fileSize?: number;
   downloadUrl: string;
   streamUrl: string;

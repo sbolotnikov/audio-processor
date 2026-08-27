@@ -8,7 +8,7 @@ import { ConversionCard } from '../../components/ConversionCard';
 import { RecentConversions } from '../../components/RecentConversions';
 import { FaqSection } from '../../components/FaqSection';
 import { VideoMetadata, AudioFormatOption, ConversionJob, HistoryItem } from'../../types/types';
-import { Music, Sparkles, Headphones, ShieldCheck, Download, ArrowDown } from 'lucide-react';
+import { Music, Sparkles, Video } from 'lucide-react';
 
 export default function App() {
   const [url, setUrl] = useState<string>('');
@@ -16,30 +16,41 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [metadata, setMetadata] = useState<VideoMetadata | null>(null);
   const [selectedBitrate, setSelectedBitrate] = useState<AudioFormatOption['bitrate']>('320k');
+  const [outputType, setOutputType] = useState<'audio' | 'video'>('audio');
 
   const [currentJob, setCurrentJob] = useState<ConversionJob | null>(null);
   const [isConverting, setIsConverting] = useState<boolean>(false);
 
-  const [history, setHistory] = useState<HistoryItem[]>(() => {
-    try {
-      const saved = localStorage.getItem('yt_mp3_history');
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
+  // Keep the server render and first browser render identical. Saved history
+  // is restored only after React has hydrated the page.
+  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [historyLoaded, setHistoryLoaded] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
 
   const pollingTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Save history to localStorage
+  // Restore history after hydration.
   useEffect(() => {
+    try {
+      const saved = localStorage.getItem('yt_mp3_history');
+      if (saved) setHistory(JSON.parse(saved));
+    } catch (error) {
+      console.warn('Failed to restore history from localStorage:', error);
+    } finally {
+      setHistoryLoaded(true);
+    }
+  }, []);
+
+  // Save history only after restoration, so the initial empty state does not
+  // overwrite a returning user's saved downloads.
+  useEffect(() => {
+    if (!historyLoaded) return;
     try {
       localStorage.setItem('yt_mp3_history', JSON.stringify(history));
     } catch (e) {
       console.warn('Failed to save history to localStorage:', e);
     }
-  }, [history]);
+  }, [history, historyLoaded]);
 
   // Clean up polling timer on unmount
   useEffect(() => {
@@ -111,6 +122,7 @@ export default function App() {
               thumbnail: data.job.metadata?.thumbnail || '',
               durationFormatted: data.job.metadata?.durationFormatted || '',
               bitrate: data.job.bitrate,
+              outputType: data.job.outputType,
               fileSize: data.job.fileSize,
               downloadUrl: `/api/download/${data.job.id}`,
               streamUrl: `/api/stream/${data.job.id}`,
@@ -142,6 +154,8 @@ export default function App() {
     endTime?: number;
     normalizeAudio?: boolean;
     fadeInOut?: boolean;
+    outputType?: 'audio' | 'video';
+    videoQuality?: 'best' | '1080' | '720' | '480' | '360';
   }) => {
     if (!metadata) return;
 
@@ -162,6 +176,8 @@ export default function App() {
           endTime: options.endTime,
           normalizeAudio: options.normalizeAudio,
           fadeInOut: options.fadeInOut,
+          outputType: options.outputType,
+          videoQuality: options.videoQuality,
         }),
       });
 
@@ -226,13 +242,22 @@ export default function App() {
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
             Turn YouTube Links into <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-[#F27D26] via-[#FF944D] to-[#FBBF24] bg-clip-text text-transparent">
-              High-Fidelity MP3 Files
+              High-Fidelity MP3 or MP4 Files
             </span>
           </h1>
 
           <p className="text-[#8E9299] text-sm sm:text-base max-w-2xl mx-auto">
-            Paste any YouTube video, Music track, or Shorts link. Extract crystal-clear audio with embedded cover art, ID3 tags, and instant download.
+            Paste a YouTube video, Music track, or Shorts link. Download high-quality MP3 audio or the complete MP4 video.
           </p>
+        </div>
+
+        <div className="mx-auto grid w-full max-w-md grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-[#141414] p-1.5 shadow-xl">
+          <button type="button" onClick={() => setOutputType('audio')} className={`flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold transition ${outputType === 'audio' ? 'bg-[#F27D26] text-white shadow-lg shadow-[#F27D26]/20' : 'text-[#8E9299] hover:bg-white/5 hover:text-white'}`}>
+            <Music className="h-4 w-4" /> Audio MP3
+          </button>
+          <button type="button" onClick={() => setOutputType('video')} className={`flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold transition ${outputType === 'video' ? 'bg-[#F27D26] text-white shadow-lg shadow-[#F27D26]/20' : 'text-[#8E9299] hover:bg-white/5 hover:text-white'}`}>
+            <Video className="h-4 w-4" /> Video MP4
+          </button>
         </div>
 
         {/* URL Input Box */}
@@ -242,6 +267,7 @@ export default function App() {
           onFetch={handleFetchInfo}
           isLoading={isLoadingInfo}
           error={error}
+          outputType={outputType}
         />
 
         {/* Active Conversion Progress Card (when converting or complete) */}
@@ -261,6 +287,8 @@ export default function App() {
               metadata={metadata}
               selectedBitrate={selectedBitrate}
               onSelectBitrate={setSelectedBitrate}
+              outputType={outputType}
+              onSelectOutputType={setOutputType}
               onConvert={handleStartConversion}
               isConverting={isConverting}
             />
@@ -282,7 +310,7 @@ export default function App() {
       {/* Footer */}
       <footer className="w-full border-t border-white/5 bg-[#0A0A0A] py-6 text-center text-xs text-[#8E9299] z-10">
         <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span className="text-[#8E9299]">YouTube to MP3 Audio Studio &copy; 2026</span>
+          <span className="text-[#8E9299]">YouTube Media Studio &copy; 2026</span>
           <span className="text-[#5A5E66]">Supports standard videos, Shorts, & YouTube Music</span>
         </div>
       </footer>

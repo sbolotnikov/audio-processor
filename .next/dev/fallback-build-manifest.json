@@ -1,6 +1,30 @@
 {
   "pages": {
-    "/_app": []
+    "/_app": [
+      "static/chunks/0ftb_next_dist_compiled_02nv06m._.js",
+      "static/chunks/0ftb_next_dist_shared_lib_0uxqx6i._.js",
+      "static/chunks/0ftb_next_dist_client_0p5e565._.js",
+      "static/chunks/0ftb_next_dist_0eo716~._.js",
+      "static/chunks/0ftb_next_app_0ex3lhn.js",
+      "static/chunks/[next]_entry_page-loader_ts_01.0-xh._.js",
+      "static/chunks/0ftb_react-dom_03nfbuu._.js",
+      "static/chunks/0ftb_0qh2yd.._.js",
+      "static/chunks/[root-of-the-server]__10zns95._.js",
+      "static/chunks/audio-processor_pages__app_07xvfw~._.js",
+      "static/chunks/turbopack-audio-processor_pages__app_0l_y5n8._.js"
+    ],
+    "/_error": [
+      "static/chunks/0ftb_next_dist_compiled_02nv06m._.js",
+      "static/chunks/0ftb_next_dist_shared_lib_0oiucx8._.js",
+      "static/chunks/0ftb_next_dist_client_0p5e565._.js",
+      "static/chunks/0ftb_next_dist_0ajauro._.js",
+      "static/chunks/[next]_entry_page-loader_ts_0i84z6u._.js",
+      "static/chunks/0ftb_react-dom_03nfbuu._.js",
+      "static/chunks/0ftb_0qh2yd.._.js",
+      "static/chunks/[root-of-the-server]__0pc-25m._.js",
+      "static/chunks/audio-processor_pages__error_07xvfw~._.js",
+      "static/chunks/turbopack-audio-processor_pages__error_05ebthh._.js"
+    ]
   },
   "devFiles": [],
   "polyfillFiles": [],

@@ -287,7 +287,7 @@ const SAMPLE_VIDEOS = [
         label: '🎙️ Podcast / Speech'
     }
 ];
-const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error })=>{
+const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error, outputType })=>{
     _s();
     const [pasteSuccess, setPasteSuccess] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const handlePaste = async ()=>{
@@ -321,7 +321,7 @@ const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error })=>{
                         className: "absolute -inset-0.5 bg-gradient-to-r from-[#F27D26] via-[#FF944D] to-[#FBBF24] rounded-2xl blur-sm opacity-20 group-hover:opacity-40 transition duration-300 pointer-events-none"
                     }, void 0, false, {
                         fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                        lineNumber: 66,
+                        lineNumber: 68,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -333,12 +333,12 @@ const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error })=>{
                                     className: "w-6 h-6"
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                    lineNumber: 71,
+                                    lineNumber: 73,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                lineNumber: 70,
+                                lineNumber: 72,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -352,7 +352,7 @@ const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error })=>{
                                 disabled: isLoading
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                lineNumber: 75,
+                                lineNumber: 77,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -368,12 +368,12 @@ const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error })=>{
                                             className: "w-4 h-4"
                                         }, void 0, false, {
                                             fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                            lineNumber: 96,
+                                            lineNumber: 98,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                        lineNumber: 89,
+                                        lineNumber: 91,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -388,7 +388,7 @@ const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error })=>{
                                                     className: "w-3.5 h-3.5 text-emerald-400"
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                                    lineNumber: 109,
+                                                    lineNumber: 111,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -396,7 +396,7 @@ const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error })=>{
                                                     children: "Pasted!"
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                                    lineNumber: 110,
+                                                    lineNumber: 112,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
@@ -406,21 +406,21 @@ const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error })=>{
                                                     className: "w-3.5 h-3.5 text-[#8E9299]"
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                                    lineNumber: 114,
+                                                    lineNumber: 116,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     children: "Paste"
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                                    lineNumber: 115,
+                                                    lineNumber: 117,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true)
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                        lineNumber: 100,
+                                        lineNumber: 102,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -435,56 +435,56 @@ const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error })=>{
                                                     className: "w-4 h-4 animate-spin"
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                                    lineNumber: 129,
+                                                    lineNumber: 131,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     children: "Fetching..."
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                                    lineNumber: 130,
+                                                    lineNumber: 132,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    children: "Extract MP3"
+                                                    children: outputType === 'video' ? 'Extract MP4' : 'Extract MP3'
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                                    lineNumber: 134,
+                                                    lineNumber: 136,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
                                                     className: "w-4 h-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                                    lineNumber: 135,
+                                                    lineNumber: 137,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true)
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                        lineNumber: 120,
+                                        lineNumber: 122,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                lineNumber: 87,
+                                lineNumber: 89,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                        lineNumber: 68,
+                        lineNumber: 70,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                lineNumber: 65,
+                lineNumber: 67,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -494,20 +494,20 @@ const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error })=>{
                         className: "w-2 h-2 rounded-full bg-rose-500 shrink-0"
                     }, void 0, false, {
                         fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                        lineNumber: 146,
+                        lineNumber: 148,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                         children: error
                     }, void 0, false, {
                         fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                        lineNumber: 147,
+                        lineNumber: 149,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                lineNumber: 145,
+                lineNumber: 147,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -520,14 +520,14 @@ const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error })=>{
                                 className: "w-3 h-3 text-[#5A5E66]"
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                lineNumber: 154,
+                                lineNumber: 156,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             " Or try a sample link:"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                        lineNumber: 153,
+                        lineNumber: 155,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     SAMPLE_VIDEOS.map((sample, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -542,24 +542,24 @@ const UrlInputSection = ({ url, setUrl, onFetch, isLoading, error })=>{
                                 children: sample.label
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                                lineNumber: 167,
+                                lineNumber: 169,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         }, idx, false, {
                             fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                            lineNumber: 157,
+                            lineNumber: 159,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0)))
                 ]
             }, void 0, true, {
                 fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-                lineNumber: 152,
+                lineNumber: 154,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/audio-processor/components/UrlInputSection.tsx",
-        lineNumber: 63,
+        lineNumber: 65,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -594,11 +594,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_m
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/user.js [app-client] (ecmascript) <export default as User>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$audio$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileAudio$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/file-audio.js [app-client] (ecmascript) <export default as FileAudio>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$external$2d$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ExternalLink$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/external-link.js [app-client] (ecmascript) <export default as ExternalLink>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$video$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Video$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/video.js [app-client] (ecmascript) <export default as Video>");
 ;
 var _s = __turbopack_context__.k.signature();
 ;
 ;
-const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConvert, isConverting })=>{
+const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, outputType, onSelectOutputType, onConvert, isConverting })=>{
     _s();
     const [showAdvanced, setShowAdvanced] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [customTitle, setCustomTitle] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(metadata.title);
@@ -611,6 +612,7 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
     // Audio enhancements
     const [normalizeAudio, setNormalizeAudio] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [fadeInOut, setFadeInOut] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [videoQuality, setVideoQuality] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('720');
     const formatSecToMin = (sec)=>{
         const mins = Math.floor(sec / 60);
         const secs = Math.floor(sec % 60);
@@ -625,7 +627,9 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
             startTime: enableTrim ? startTime : undefined,
             endTime: enableTrim ? endTime : undefined,
             normalizeAudio,
-            fadeInOut
+            fadeInOut,
+            outputType,
+            videoQuality
         });
     };
     const currentFormat = metadata.formats?.find((f)=>f.bitrate === selectedBitrate) || {
@@ -652,14 +656,14 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                 referrerPolicy: "no-referrer"
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 94,
+                                lineNumber: 104,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 100,
+                                lineNumber: 110,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -669,20 +673,20 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                         className: "w-3 h-3 text-[#F27D26]"
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 104,
+                                        lineNumber: 114,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: metadata.durationFormatted
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 105,
+                                        lineNumber: 115,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 103,
+                                lineNumber: 113,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -695,18 +699,18 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                     className: "w-3.5 h-3.5"
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                    lineNumber: 116,
+                                    lineNumber: 126,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 109,
+                                lineNumber: 119,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                        lineNumber: 93,
+                        lineNumber: 103,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -721,20 +725,20 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                 className: "w-3.5 h-3.5"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 124,
+                                                lineNumber: 134,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 children: "Ready for High Quality Conversion"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 125,
+                                                lineNumber: 135,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 123,
+                                        lineNumber: 133,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -742,7 +746,7 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                         children: metadata.title
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 127,
+                                        lineNumber: 137,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -755,14 +759,14 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                         className: "w-3.5 h-3.5 text-[#5A5E66]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 132,
+                                                        lineNumber: 142,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     metadata.channel
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 131,
+                                                lineNumber: 141,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -772,7 +776,7 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                         className: "w-3.5 h-3.5 text-[#5A5E66]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 136,
+                                                        lineNumber: 146,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     metadata.viewCount.toLocaleString(),
@@ -780,7 +784,7 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 135,
+                                                lineNumber: 145,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             metadata.uploadDate && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -790,22 +794,22 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 140,
+                                                lineNumber: 150,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 130,
+                                        lineNumber: 140,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 122,
+                                lineNumber: 132,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            outputType === 'audio' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "pt-2 border-t border-white/10",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -815,7 +819,7 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                 children: "Select Audio Bitrate"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 148,
+                                                lineNumber: 158,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -827,13 +831,13 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 149,
+                                                lineNumber: 159,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 147,
+                                        lineNumber: 157,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -854,20 +858,20 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                                 children: fmt.bitrate.toUpperCase()
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                                lineNumber: 170,
+                                                                lineNumber: 180,
                                                                 columnNumber: 23
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             isSelected && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                                 className: "w-3 h-3 text-[#F27D26]"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                                lineNumber: 171,
+                                                                lineNumber: 181,
                                                                 columnNumber: 38
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 169,
+                                                        lineNumber: 179,
                                                         columnNumber: 21
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -875,37 +879,138 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                         children: fmt.qualityNote
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 173,
+                                                        lineNumber: 183,
                                                         columnNumber: 21
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, fmt.bitrate, true, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 158,
+                                                lineNumber: 168,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0));
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 154,
+                                        lineNumber: 164,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 146,
-                                columnNumber: 11
+                                lineNumber: 156,
+                                columnNumber: 37
+                            }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "pt-2 border-t border-white/10",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                        className: "mb-2 block text-xs font-semibold uppercase tracking-wider text-[#8E9299]",
+                                        children: "Video quality"
+                                    }, void 0, false, {
+                                        fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
+                                        lineNumber: 192,
+                                        columnNumber: 15
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "grid grid-cols-3 gap-2 sm:grid-cols-5",
+                                        children: [
+                                            'best',
+                                            '1080',
+                                            '720',
+                                            '480',
+                                            '360'
+                                        ].map((quality)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                type: "button",
+                                                onClick: ()=>setVideoQuality(quality),
+                                                className: `rounded-xl border px-2 py-2.5 text-xs font-bold transition ${videoQuality === quality ? 'border-[#F27D26] bg-[#F27D26]/15 text-white ring-1 ring-[#F27D26]/40' : 'border-white/5 bg-[#1A1A1A] text-[#8E9299] hover:border-white/20 hover:text-white'}`,
+                                                children: quality === 'best' ? 'Best' : `${quality}p`
+                                            }, quality, false, {
+                                                fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
+                                                lineNumber: 195,
+                                                columnNumber: 19
+                                            }, ("TURBOPACK compile-time value", void 0)))
+                                    }, void 0, false, {
+                                        fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
+                                        lineNumber: 193,
+                                        columnNumber: 15
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "mt-2 text-[11px] text-[#5A5E66]",
+                                        children: "Maximum resolution; falls back to the closest available quality."
+                                    }, void 0, false, {
+                                        fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
+                                        lineNumber: 200,
+                                        columnNumber: 15
+                                    }, ("TURBOPACK compile-time value", void 0))
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
+                                lineNumber: 191,
+                                columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                        lineNumber: 121,
+                        lineNumber: 131,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                lineNumber: 91,
+                lineNumber: 101,
+                columnNumber: 7
+            }, ("TURBOPACK compile-time value", void 0)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "border-t border-white/10 px-5 py-4 sm:px-6",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "grid grid-cols-2 gap-2 rounded-xl bg-[#0A0A0A] p-1.5",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            type: "button",
+                            onClick: ()=>onSelectOutputType('audio'),
+                            className: `flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold transition ${outputType === 'audio' ? 'bg-[#F27D26] text-white shadow-lg shadow-[#F27D26]/20' : 'text-[#8E9299] hover:bg-white/5 hover:text-white'}`,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$music$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Music2$3e$__["Music2"], {
+                                    className: "h-4 w-4"
+                                }, void 0, false, {
+                                    fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
+                                    lineNumber: 209,
+                                    columnNumber: 13
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                " Audio MP3"
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
+                            lineNumber: 208,
+                            columnNumber: 11
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            type: "button",
+                            onClick: ()=>onSelectOutputType('video'),
+                            className: `flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold transition ${outputType === 'video' ? 'bg-[#F27D26] text-white shadow-lg shadow-[#F27D26]/20' : 'text-[#8E9299] hover:bg-white/5 hover:text-white'}`,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$video$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Video$3e$__["Video"], {
+                                    className: "h-4 w-4"
+                                }, void 0, false, {
+                                    fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
+                                    lineNumber: 212,
+                                    columnNumber: 13
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                " Video MP4"
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
+                            lineNumber: 211,
+                            columnNumber: 11
+                        }, ("TURBOPACK compile-time value", void 0))
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
+                    lineNumber: 207,
+                    columnNumber: 9
+                }, ("TURBOPACK compile-time value", void 0))
+            }, void 0, false, {
+                fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
+                lineNumber: 206,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -924,14 +1029,14 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                         className: "w-3.5 h-3.5 text-[#F27D26]"
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 193,
+                                        lineNumber: 226,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: "Audio Trimming & ID3 Tag Customization"
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 194,
+                                        lineNumber: 227,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     (enableTrim || customTitle !== metadata.title) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -939,32 +1044,32 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                         children: "Modified"
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 196,
+                                        lineNumber: 229,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 192,
+                                lineNumber: 225,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             showAdvanced ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$up$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronUp$3e$__["ChevronUp"], {
                                 className: "w-4 h-4"
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 201,
+                                lineNumber: 234,
                                 columnNumber: 27
                             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                 className: "w-4 h-4"
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 201,
+                                lineNumber: 234,
                                 columnNumber: 63
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                        lineNumber: 186,
+                        lineNumber: 219,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     showAdvanced && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -982,14 +1087,14 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                         className: "w-3 h-3 text-[#5A5E66]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 210,
+                                                        lineNumber: 243,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     " Track Title"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 209,
+                                                lineNumber: 242,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1000,13 +1105,13 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                 className: "w-full bg-[#1A1A1A] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#F27D26]"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 212,
+                                                lineNumber: 245,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 208,
+                                        lineNumber: 241,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1018,14 +1123,14 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                         className: "w-3 h-3 text-[#5A5E66]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 222,
+                                                        lineNumber: 255,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     " Artist Name"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 221,
+                                                lineNumber: 254,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1036,13 +1141,13 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                 className: "w-full bg-[#1A1A1A] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#F27D26]"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 224,
+                                                lineNumber: 257,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 220,
+                                        lineNumber: 253,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1054,14 +1159,14 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                         className: "w-3 h-3 text-[#5A5E66]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 234,
+                                                        lineNumber: 267,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     " Album / Collection"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 233,
+                                                lineNumber: 266,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1072,19 +1177,19 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                 className: "w-full bg-[#1A1A1A] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#F27D26]"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 236,
+                                                lineNumber: 269,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 232,
+                                        lineNumber: 265,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 207,
+                                lineNumber: 240,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1100,20 +1205,20 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                         className: "w-3.5 h-3.5 text-[#F27D26]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 250,
+                                                        lineNumber: 283,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: "Trim Audio Range (Cut intro / outro)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 251,
+                                                        lineNumber: 284,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 249,
+                                                lineNumber: 282,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1124,13 +1229,13 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                 className: "rounded text-[#F27D26] focus:ring-[#F27D26] h-4 w-4 bg-[#0A0A0A] border-white/20 accent-[#F27D26] cursor-pointer"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 253,
+                                                lineNumber: 286,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 248,
+                                        lineNumber: 281,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     enableTrim && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1145,7 +1250,7 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                                 children: "Start Time:"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                                lineNumber: 266,
+                                                                lineNumber: 299,
                                                                 columnNumber: 23
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1153,13 +1258,13 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                                 children: formatSecToMin(startTime)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                                lineNumber: 267,
+                                                                lineNumber: 300,
                                                                 columnNumber: 23
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 265,
+                                                        lineNumber: 298,
                                                         columnNumber: 21
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1172,13 +1277,13 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                         className: "w-full accent-[#F27D26]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 269,
+                                                        lineNumber: 302,
                                                         columnNumber: 21
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 264,
+                                                lineNumber: 297,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1190,7 +1295,7 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                                 children: "End Time:"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                                lineNumber: 281,
+                                                                lineNumber: 314,
                                                                 columnNumber: 23
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1198,13 +1303,13 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                                 children: formatSecToMin(endTime)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                                lineNumber: 282,
+                                                                lineNumber: 315,
                                                                 columnNumber: 23
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 280,
+                                                        lineNumber: 313,
                                                         columnNumber: 21
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1217,25 +1322,25 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                         className: "w-full accent-[#F27D26]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                        lineNumber: 284,
+                                                        lineNumber: 317,
                                                         columnNumber: 21
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 279,
+                                                lineNumber: 312,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 263,
+                                        lineNumber: 296,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 247,
+                                lineNumber: 280,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1252,27 +1357,27 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                 className: "rounded text-[#F27D26] focus:ring-[#F27D26] h-4 w-4 bg-[#0A0A0A] border-white/20 accent-[#F27D26]"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 301,
+                                                lineNumber: 334,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$volume$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Volume2$3e$__["Volume2"], {
                                                 className: "w-3.5 h-3.5 text-[#F27D26]"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 308,
+                                                lineNumber: 341,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 children: "Normalize Audio Volume (EBU R128 standard)"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 309,
+                                                lineNumber: 342,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 300,
+                                        lineNumber: 333,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1286,45 +1391,45 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                                 className: "rounded text-[#F27D26] focus:ring-[#F27D26] h-4 w-4 bg-[#0A0A0A] border-white/20 accent-[#F27D26]"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 313,
+                                                lineNumber: 346,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__["Sparkles"], {
                                                 className: "w-3.5 h-3.5 text-[#F27D26]"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 320,
+                                                lineNumber: 353,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 children: "Smooth 1.5s Fade In / Out"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                                lineNumber: 321,
+                                                lineNumber: 354,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 312,
+                                        lineNumber: 345,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 299,
+                                lineNumber: 332,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                        lineNumber: 205,
+                        lineNumber: 238,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                lineNumber: 185,
+                lineNumber: 218,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1335,40 +1440,40 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "w-9 h-9 rounded-lg bg-[#F27D26]/10 border border-[#F27D26]/20 text-[#F27D26] flex items-center justify-center font-bold text-xs",
-                                children: "MP3"
+                                children: outputType === 'video' ? 'MP4' : 'MP3'
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 331,
+                                lineNumber: 364,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "text-sm font-semibold text-white",
-                                        children: currentFormat.label
+                                        children: outputType === 'video' ? `${videoQuality === 'best' ? 'Best available' : `${videoQuality}p`} MP4 video` : currentFormat.label
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 335,
+                                        lineNumber: 368,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "text-xs text-[#8E9299]",
-                                        children: "Cover art + ID3 metadata included"
+                                        children: outputType === 'video' ? 'Video and audio merged with FFmpeg' : 'ID3 metadata included'
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                        lineNumber: 338,
+                                        lineNumber: 371,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 334,
+                                lineNumber: 367,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                        lineNumber: 330,
+                        lineNumber: 363,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1382,40 +1487,36 @@ const VideoDetailsCard = ({ metadata, selectedBitrate, onSelectBitrate, onConver
                                 className: "w-4 h-4"
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 351,
+                                lineNumber: 384,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                children: [
-                                    "Convert to MP3 (",
-                                    selectedBitrate.toUpperCase(),
-                                    ")"
-                                ]
-                            }, void 0, true, {
+                                children: outputType === 'video' ? 'Download Video (MP4)' : `Convert to MP3 (${selectedBitrate.toUpperCase()})`
+                            }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                                lineNumber: 352,
+                                lineNumber: 385,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                        lineNumber: 344,
+                        lineNumber: 377,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-                lineNumber: 329,
+                lineNumber: 362,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/audio-processor/components/VideoDetailsCard.tsx",
-        lineNumber: 89,
+        lineNumber: 99,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(VideoDetailsCard, "VgsbvGHbsUA+T0PesdQYOdhnpNU=");
+_s(VideoDetailsCard, "AJTYwLBYkbo7xSdJ/B2vwXRNjEY=");
 _c = VideoDetailsCard;
 var _c;
 __turbopack_context__.k.register(_c, "VideoDetailsCard");
@@ -1445,6 +1546,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_m
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/circle-alert.js [app-client] (ecmascript) <export default as AlertCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$hard$2d$drive$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__HardDrive$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/hard-drive.js [app-client] (ecmascript) <export default as HardDrive>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$audio$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileAudio$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/file-audio.js [app-client] (ecmascript) <export default as FileAudio>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$play$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileVideo$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/file-play.js [app-client] (ecmascript) <export default as FileVideo>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$video$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Video$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/video.js [app-client] (ecmascript) <export default as Video>");
 ;
 var _s = __turbopack_context__.k.signature();
 ;
@@ -1523,10 +1626,11 @@ const ConversionCard = ({ job, onReset })=>{
     const fileSizeMB = job.fileSize ? (job.fileSize / (1024 * 1024)).toFixed(2) : null;
     const isCompleted = job.status === 'completed';
     const isError = job.status === 'error';
+    const isVideo = job.outputType === 'video';
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "w-full bg-[#141414] border border-white/10 rounded-2xl overflow-hidden shadow-2xl backdrop-blur-md",
         children: [
-            isCompleted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("audio", {
+            isCompleted && !isVideo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("audio", {
                 ref: audioRef,
                 src: streamUrl,
                 onTimeUpdate: handleTimeUpdate,
@@ -1534,7 +1638,7 @@ const ConversionCard = ({ job, onReset })=>{
                 onEnded: ()=>setIsPlaying(false)
             }, void 0, false, {
                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                lineNumber: 115,
+                lineNumber: 118,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1549,24 +1653,30 @@ const ConversionCard = ({ job, onReset })=>{
                                     className: "w-5 h-5 text-slate-950"
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                    lineNumber: 135,
+                                    lineNumber: 138,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)) : isError ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__["AlertCircle"], {
                                     className: "w-5 h-5"
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                    lineNumber: 137,
+                                    lineNumber: 140,
                                     columnNumber: 15
+                                }, ("TURBOPACK compile-time value", void 0)) : isVideo ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$video$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Video$3e$__["Video"], {
+                                    className: "w-5 h-5"
+                                }, void 0, false, {
+                                    fileName: "[project]/audio-processor/components/ConversionCard.tsx",
+                                    lineNumber: 142,
+                                    columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$music$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Music$3e$__["Music"], {
                                     className: "w-5 h-5"
                                 }, void 0, false, {
                                     fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                    lineNumber: 139,
-                                    columnNumber: 15
+                                    lineNumber: 142,
+                                    columnNumber: 57
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 127,
+                                lineNumber: 130,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1576,7 +1686,7 @@ const ConversionCard = ({ job, onReset })=>{
                                         children: job.finalFileName || job.videoTitle
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                        lineNumber: 144,
+                                        lineNumber: 147,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1584,43 +1694,40 @@ const ConversionCard = ({ job, onReset })=>{
                                         children: job.stageMessage
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                        lineNumber: 147,
+                                        lineNumber: 150,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 143,
+                                lineNumber: 146,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                        lineNumber: 126,
+                        lineNumber: 129,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex items-center gap-2",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                             className: "px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-[#1A1A1A] text-[#E0E0E0] border border-white/10",
-                            children: [
-                                job.bitrate.toUpperCase(),
-                                " MP3"
-                            ]
-                        }, void 0, true, {
+                            children: isVideo ? `${job.bitrate.toUpperCase()} MP4` : `${job.bitrate.toUpperCase()} MP3`
+                        }, void 0, false, {
                             fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                            lineNumber: 154,
+                            lineNumber: 157,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                        lineNumber: 153,
+                        lineNumber: 156,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                lineNumber: 125,
+                lineNumber: 128,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             !isCompleted && !isError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1639,27 +1746,29 @@ const ConversionCard = ({ job, onReset })=>{
                                                 className: "animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F27D26] opacity-75"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                lineNumber: 167,
+                                                lineNumber: 170,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F27D26]"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                lineNumber: 168,
+                                                lineNumber: 171,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                        lineNumber: 166,
+                                        lineNumber: 169,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
-                                    "Processing Audio..."
+                                    "Processing ",
+                                    isVideo ? 'Video' : 'Audio',
+                                    "..."
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 165,
+                                lineNumber: 168,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1670,13 +1779,13 @@ const ConversionCard = ({ job, onReset })=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 172,
+                                lineNumber: 175,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                        lineNumber: 164,
+                        lineNumber: 167,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1688,12 +1797,12 @@ const ConversionCard = ({ job, onReset })=>{
                             }
                         }, void 0, false, {
                             fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                            lineNumber: 179,
+                            lineNumber: 182,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                        lineNumber: 178,
+                        lineNumber: 181,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1704,43 +1813,49 @@ const ConversionCard = ({ job, onReset })=>{
                                 children: "1. Fetch Stream"
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 187,
-                                columnNumber: 13
-                            }, ("TURBOPACK compile-time value", void 0)),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: `p-2 rounded-lg border ${job.progress >= 30 ? 'text-[#F27D26] font-semibold bg-[#F27D26]/10 border-[#F27D26]/20' : 'opacity-40 border-transparent'}`,
-                                children: "2. Download Audio"
-                            }, void 0, false, {
-                                fileName: "[project]/audio-processor/components/ConversionCard.tsx",
                                 lineNumber: 190,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: `p-2 rounded-lg border ${job.progress >= 80 ? 'text-[#F27D26] font-semibold bg-[#F27D26]/10 border-[#F27D26]/20' : 'opacity-40 border-transparent'}`,
-                                children: "3. FFmpeg MP3"
-                            }, void 0, false, {
+                                className: `p-2 rounded-lg border ${job.progress >= 30 ? 'text-[#F27D26] font-semibold bg-[#F27D26]/10 border-[#F27D26]/20' : 'opacity-40 border-transparent'}`,
+                                children: [
+                                    "2. Download ",
+                                    isVideo ? 'Media' : 'Audio'
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
                                 lineNumber: 193,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: `p-2 rounded-lg border ${job.progress >= 92 ? 'text-[#F27D26] font-semibold bg-[#F27D26]/10 border-[#F27D26]/20' : 'opacity-40 border-transparent'}`,
-                                children: "4. ID3 Tags"
-                            }, void 0, false, {
+                                className: `p-2 rounded-lg border ${job.progress >= 80 ? 'text-[#F27D26] font-semibold bg-[#F27D26]/10 border-[#F27D26]/20' : 'opacity-40 border-transparent'}`,
+                                children: [
+                                    "3. FFmpeg ",
+                                    isVideo ? 'MP4' : 'MP3'
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
                                 lineNumber: 196,
+                                columnNumber: 13
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: `p-2 rounded-lg border ${job.progress >= 92 ? 'text-[#F27D26] font-semibold bg-[#F27D26]/10 border-[#F27D26]/20' : 'opacity-40 border-transparent'}`,
+                                children: "4. Metadata"
+                            }, void 0, false, {
+                                fileName: "[project]/audio-processor/components/ConversionCard.tsx",
+                                lineNumber: 199,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                        lineNumber: 186,
+                        lineNumber: 189,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                lineNumber: 162,
+                lineNumber: 165,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             isError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1756,14 +1871,14 @@ const ConversionCard = ({ job, onReset })=>{
                                         className: "w-4 h-4 text-rose-400"
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                        lineNumber: 208,
+                                        lineNumber: 211,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     " Conversion Encountered an Error"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 207,
+                                lineNumber: 210,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1771,13 +1886,13 @@ const ConversionCard = ({ job, onReset })=>{
                                 children: job.error || 'Please check the YouTube URL and try again.'
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 210,
+                                lineNumber: 213,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                        lineNumber: 206,
+                        lineNumber: 209,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1790,26 +1905,26 @@ const ConversionCard = ({ job, onReset })=>{
                                 className: "w-4 h-4"
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 219,
+                                lineNumber: 222,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 children: "Try Another Video"
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 220,
+                                lineNumber: 223,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                        lineNumber: 213,
+                        lineNumber: 216,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                lineNumber: 205,
+                lineNumber: 208,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             isCompleted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1823,16 +1938,22 @@ const ConversionCard = ({ job, onReset })=>{
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "p-2.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$audio$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileAudio$3e$__["FileAudio"], {
+                                        children: isVideo ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$play$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileVideo$3e$__["FileVideo"], {
                                             className: "w-6 h-6"
                                         }, void 0, false, {
                                             fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                            lineNumber: 232,
-                                            columnNumber: 17
+                                            lineNumber: 235,
+                                            columnNumber: 28
+                                        }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$audio$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileAudio$3e$__["FileAudio"], {
+                                            className: "w-6 h-6"
+                                        }, void 0, false, {
+                                            fileName: "[project]/audio-processor/components/ConversionCard.tsx",
+                                            lineNumber: 235,
+                                            columnNumber: 64
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                        lineNumber: 231,
+                                        lineNumber: 234,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1842,7 +1963,7 @@ const ConversionCard = ({ job, onReset })=>{
                                                 children: job.finalFileName
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                lineNumber: 235,
+                                                lineNumber: 238,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1855,7 +1976,7 @@ const ConversionCard = ({ job, onReset })=>{
                                                                 className: "w-3 h-3 text-[#5A5E66]"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                                lineNumber: 241,
+                                                                lineNumber: 244,
                                                                 columnNumber: 23
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             fileSizeMB,
@@ -1863,7 +1984,7 @@ const ConversionCard = ({ job, onReset })=>{
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                        lineNumber: 240,
+                                                        lineNumber: 243,
                                                         columnNumber: 21
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1871,25 +1992,25 @@ const ConversionCard = ({ job, onReset })=>{
                                                         children: "Ready for Download"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                        lineNumber: 245,
+                                                        lineNumber: 248,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                lineNumber: 238,
+                                                lineNumber: 241,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                        lineNumber: 234,
+                                        lineNumber: 237,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 230,
+                                lineNumber: 233,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -1902,29 +2023,49 @@ const ConversionCard = ({ job, onReset })=>{
                                         className: "w-4 h-4 text-slate-950"
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                        lineNumber: 257,
+                                        lineNumber: 260,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        children: "Download MP3 File"
-                                    }, void 0, false, {
+                                        children: [
+                                            "Download ",
+                                            isVideo ? 'MP4 Video' : 'MP3 File'
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                        lineNumber: 258,
+                                        lineNumber: 261,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 251,
+                                lineNumber: 254,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                        lineNumber: 229,
+                        lineNumber: 232,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    isVideo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "overflow-hidden rounded-xl border border-white/10 bg-black",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
+                            src: streamUrl,
+                            controls: true,
+                            preload: "metadata",
+                            className: "aspect-video w-full"
+                        }, void 0, false, {
+                            fileName: "[project]/audio-processor/components/ConversionCard.tsx",
+                            lineNumber: 267,
+                            columnNumber: 15
+                        }, ("TURBOPACK compile-time value", void 0))
+                    }, void 0, false, {
+                        fileName: "[project]/audio-processor/components/ConversionCard.tsx",
+                        lineNumber: 266,
+                        columnNumber: 13
+                    }, ("TURBOPACK compile-time value", void 0)),
+                    !isVideo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "p-4 rounded-xl bg-[#0A0A0A] border border-white/10 space-y-3",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1937,14 +2078,14 @@ const ConversionCard = ({ job, onReset })=>{
                                                 className: "w-3.5 h-3.5 text-[#F27D26]"
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                lineNumber: 266,
+                                                lineNumber: 275,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             " Audio Preview"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                        lineNumber: 265,
+                                        lineNumber: 274,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1956,13 +2097,13 @@ const ConversionCard = ({ job, onReset })=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                        lineNumber: 268,
+                                        lineNumber: 277,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 264,
+                                lineNumber: 273,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1975,7 +2116,7 @@ const ConversionCard = ({ job, onReset })=>{
                                 className: "w-full accent-[#F27D26] cursor-pointer"
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 274,
+                                lineNumber: 283,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1994,18 +2135,18 @@ const ConversionCard = ({ job, onReset })=>{
                                                     className: "w-4 h-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                    lineNumber: 294,
+                                                    lineNumber: 303,
                                                     columnNumber: 32
                                                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$play$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Play$3e$__["Play"], {
                                                     className: "w-4 h-4 ml-0.5"
                                                 }, void 0, false, {
                                                     fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                    lineNumber: 294,
+                                                    lineNumber: 303,
                                                     columnNumber: 64
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                lineNumber: 287,
+                                                lineNumber: 296,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2020,18 +2161,18 @@ const ConversionCard = ({ job, onReset })=>{
                                                             className: "w-4 h-4 text-[#F27D26]"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                            lineNumber: 305,
+                                                            lineNumber: 314,
                                                             columnNumber: 23
                                                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$volume$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Volume2$3e$__["Volume2"], {
                                                             className: "w-4 h-4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                            lineNumber: 307,
+                                                            lineNumber: 316,
                                                             columnNumber: 23
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                        lineNumber: 298,
+                                                        lineNumber: 307,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2045,19 +2186,19 @@ const ConversionCard = ({ job, onReset })=>{
                                                         className: "w-16 accent-[#F27D26]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                        lineNumber: 310,
+                                                        lineNumber: 319,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                lineNumber: 297,
+                                                lineNumber: 306,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                        lineNumber: 286,
+                                        lineNumber: 295,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2075,7 +2216,7 @@ const ConversionCard = ({ job, onReset })=>{
                                                             className: "w-3.5 h-3.5 text-emerald-400"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                            lineNumber: 334,
+                                                            lineNumber: 343,
                                                             columnNumber: 19
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2083,7 +2224,7 @@ const ConversionCard = ({ job, onReset })=>{
                                                             children: "Copied!"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                            lineNumber: 335,
+                                                            lineNumber: 344,
                                                             columnNumber: 23
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
@@ -2093,21 +2234,21 @@ const ConversionCard = ({ job, onReset })=>{
                                                             className: "w-3.5 h-3.5 text-[#8E9299]"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                            lineNumber: 339,
+                                                            lineNumber: 348,
                                                             columnNumber: 23
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             children: "Copy Link"
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                            lineNumber: 340,
+                                                            lineNumber: 349,
                                                             columnNumber: 23
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true)
                                             }, void 0, false, {
                                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                lineNumber: 325,
+                                                lineNumber: 334,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2120,50 +2261,50 @@ const ConversionCard = ({ job, onReset })=>{
                                                         className: "w-3.5 h-3.5 text-[#8E9299]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                        lineNumber: 351,
+                                                        lineNumber: 360,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: "Convert Another"
                                                     }, void 0, false, {
                                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                        lineNumber: 352,
+                                                        lineNumber: 361,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                                lineNumber: 345,
+                                                lineNumber: 354,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                        lineNumber: 324,
+                                        lineNumber: 333,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                                lineNumber: 285,
+                                lineNumber: 294,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                        lineNumber: 263,
-                        columnNumber: 11
+                        lineNumber: 272,
+                        columnNumber: 24
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-                lineNumber: 227,
+                lineNumber: 230,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/audio-processor/components/ConversionCard.tsx",
-        lineNumber: 112,
+        lineNumber: 115,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -2220,7 +2361,7 @@ const RecentConversions = ({ isOpen, onClose, history, onClearHistory })=>{
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                             className: "text-base font-bold text-white",
-                                            children: "Downloaded MP3 Tracks"
+                                            children: "Recent Downloads"
                                         }, void 0, false, {
                                             fileName: "[project]/audio-processor/components/RecentConversions.tsx",
                                             lineNumber: 31,
@@ -2294,7 +2435,7 @@ const RecentConversions = ({ isOpen, onClose, history, onClearHistory })=>{
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 className: "text-xs text-[#5A5E66]",
-                                children: "Paste any YouTube video link to extract high-quality MP3 audio!"
+                                children: "Paste a YouTube link to download MP3 audio or MP4 video."
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/components/RecentConversions.tsx",
                                 lineNumber: 55,
@@ -2358,7 +2499,7 @@ const RecentConversions = ({ isOpen, onClose, history, onClearHistory })=>{
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             className: "font-mono text-[#F27D26] font-semibold uppercase",
-                                                            children: item.bitrate
+                                                            children: item.outputType === 'video' ? 'MP4' : item.bitrate
                                                         }, void 0, false, {
                                                             fileName: "[project]/audio-processor/components/RecentConversions.tsx",
                                                             lineNumber: 87,
@@ -2424,7 +2565,7 @@ const RecentConversions = ({ isOpen, onClose, history, onClearHistory })=>{
                                         href: item.downloadUrl,
                                         download: true,
                                         className: "p-2 rounded-xl bg-[#F27D26]/15 hover:bg-[#F27D26]/25 text-[#F27D26] hover:text-white border border-[#F27D26]/30 transition text-xs flex items-center gap-1 font-medium cursor-pointer",
-                                        title: "Download MP3",
+                                        title: `Download ${item.outputType === 'video' ? 'MP4 video' : 'MP3 audio'}`,
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$download$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Download$3e$__["Download"], {
                                             className: "w-3.5 h-3.5"
                                         }, void 0, false, {
@@ -2877,7 +3018,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$compon
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$ConversionCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/audio-processor/components/ConversionCard.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$RecentConversions$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/audio-processor/components/RecentConversions.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$FaqSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/audio-processor/components/FaqSection.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$music$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Music$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/music.js [app-client] (ecmascript) <export default as Music>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/sparkles.js [app-client] (ecmascript) <export default as Sparkles>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$video$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Video$3e$__ = __turbopack_context__.i("[project]/audio-processor/node_modules/lucide-react/dist/esm/icons/video.js [app-client] (ecmascript) <export default as Video>");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -2896,23 +3039,33 @@ function App() {
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [metadata, setMetadata] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [selectedBitrate, setSelectedBitrate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('320k');
+    const [outputType, setOutputType] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('audio');
     const [currentJob, setCurrentJob] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [isConverting, setIsConverting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [history, setHistory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        "App.useState": ()=>{
-            try {
-                const saved = localStorage.getItem('yt_mp3_history');
-                return saved ? JSON.parse(saved) : [];
-            } catch  {
-                return [];
-            }
-        }
-    }["App.useState"]);
+    // Keep the server render and first browser render identical. Saved history
+    // is restored only after React has hydrated the page.
+    const [history, setHistory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [historyLoaded, setHistoryLoaded] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isHistoryOpen, setIsHistoryOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const pollingTimerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
-    // Save history to localStorage
+    // Restore history after hydration.
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "App.useEffect": ()=>{
+            try {
+                const saved = localStorage.getItem('yt_mp3_history');
+                if (saved) setHistory(JSON.parse(saved));
+            } catch (error) {
+                console.warn('Failed to restore history from localStorage:', error);
+            } finally{
+                setHistoryLoaded(true);
+            }
+        }
+    }["App.useEffect"], []);
+    // Save history only after restoration, so the initial empty state does not
+    // overwrite a returning user's saved downloads.
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "App.useEffect": ()=>{
+            if (!historyLoaded) return;
             try {
                 localStorage.setItem('yt_mp3_history', JSON.stringify(history));
             } catch (e) {
@@ -2920,7 +3073,8 @@ function App() {
             }
         }
     }["App.useEffect"], [
-        history
+        history,
+        historyLoaded
     ]);
     // Clean up polling timer on unmount
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
@@ -2986,6 +3140,7 @@ function App() {
                             thumbnail: data.job.metadata?.thumbnail || '',
                             durationFormatted: data.job.metadata?.durationFormatted || '',
                             bitrate: data.job.bitrate,
+                            outputType: data.job.outputType,
                             fileSize: data.job.fileSize,
                             downloadUrl: `/api/download/${data.job.id}`,
                             streamUrl: `/api/stream/${data.job.id}`,
@@ -3028,7 +3183,9 @@ function App() {
                     startTime: options.startTime,
                     endTime: options.endTime,
                     normalizeAudio: options.normalizeAudio,
-                    fadeInOut: options.fadeInOut
+                    fadeInOut: options.fadeInOut,
+                    outputType: options.outputType,
+                    videoQuality: options.videoQuality
                 })
             });
             const data = await res.json();
@@ -3071,27 +3228,27 @@ function App() {
                         className: "absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-b from-[#F27D26]/10 via-[#F27D26]/5 to-transparent blur-3xl"
                     }, void 0, false, {
                         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                        lineNumber: 206,
+                        lineNumber: 222,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute top-1/3 right-10 w-96 h-96 bg-[#F27D26]/5 blur-3xl"
                     }, void 0, false, {
                         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                        lineNumber: 207,
+                        lineNumber: 223,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute bottom-10 left-10 w-96 h-96 bg-white/[0.02] blur-3xl"
                     }, void 0, false, {
                         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                        lineNumber: 208,
+                        lineNumber: 224,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                lineNumber: 205,
+                lineNumber: 221,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Header"], {
@@ -3099,7 +3256,7 @@ function App() {
                 onOpenHistory: ()=>setIsHistoryOpen(true)
             }, void 0, false, {
                 fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                lineNumber: 212,
+                lineNumber: 228,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -3115,20 +3272,20 @@ function App() {
                                         className: "w-3.5 h-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                                        lineNumber: 222,
+                                        lineNumber: 238,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: "High-Speed 320kbps YouTube Audio Downloader"
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                                        lineNumber: 223,
+                                        lineNumber: 239,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                                lineNumber: 221,
+                                lineNumber: 237,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -3139,35 +3296,82 @@ function App() {
                                         className: "hidden sm:inline"
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                                        lineNumber: 227,
+                                        lineNumber: 243,
                                         columnNumber: 37
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         className: "bg-gradient-to-r from-[#F27D26] via-[#FF944D] to-[#FBBF24] bg-clip-text text-transparent",
-                                        children: "High-Fidelity MP3 Files"
+                                        children: "High-Fidelity MP3 or MP4 Files"
                                     }, void 0, false, {
                                         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                                        lineNumber: 228,
+                                        lineNumber: 244,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                                lineNumber: 226,
+                                lineNumber: 242,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 className: "text-[#8E9299] text-sm sm:text-base max-w-2xl mx-auto",
-                                children: "Paste any YouTube video, Music track, or Shorts link. Extract crystal-clear audio with embedded cover art, ID3 tags, and instant download."
+                                children: "Paste a YouTube video, Music track, or Shorts link. Download high-quality MP3 audio or the complete MP4 video."
                             }, void 0, false, {
                                 fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                                lineNumber: 233,
+                                lineNumber: 249,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                        lineNumber: 220,
+                        lineNumber: 236,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mx-auto grid w-full max-w-md grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-[#141414] p-1.5 shadow-xl",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                type: "button",
+                                onClick: ()=>setOutputType('audio'),
+                                className: `flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold transition ${outputType === 'audio' ? 'bg-[#F27D26] text-white shadow-lg shadow-[#F27D26]/20' : 'text-[#8E9299] hover:bg-white/5 hover:text-white'}`,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$music$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Music$3e$__["Music"], {
+                                        className: "h-4 w-4"
+                                    }, void 0, false, {
+                                        fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
+                                        lineNumber: 256,
+                                        columnNumber: 13
+                                    }, this),
+                                    " Audio MP3"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
+                                lineNumber: 255,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                type: "button",
+                                onClick: ()=>setOutputType('video'),
+                                className: `flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold transition ${outputType === 'video' ? 'bg-[#F27D26] text-white shadow-lg shadow-[#F27D26]/20' : 'text-[#8E9299] hover:bg-white/5 hover:text-white'}`,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$video$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Video$3e$__["Video"], {
+                                        className: "h-4 w-4"
+                                    }, void 0, false, {
+                                        fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
+                                        lineNumber: 259,
+                                        columnNumber: 13
+                                    }, this),
+                                    " Video MP4"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
+                                lineNumber: 258,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
+                        lineNumber: 254,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$UrlInputSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["UrlInputSection"], {
@@ -3175,10 +3379,11 @@ function App() {
                         setUrl: setUrl,
                         onFetch: handleFetchInfo,
                         isLoading: isLoadingInfo,
-                        error: error
+                        error: error,
+                        outputType: outputType
                     }, void 0, false, {
                         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                        lineNumber: 239,
+                        lineNumber: 264,
                         columnNumber: 9
                     }, this),
                     currentJob && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3188,12 +3393,12 @@ function App() {
                             onReset: handleReset
                         }, void 0, false, {
                             fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                            lineNumber: 250,
+                            lineNumber: 276,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                        lineNumber: 249,
+                        lineNumber: 275,
                         columnNumber: 11
                     }, this),
                     metadata && !currentJob && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3202,27 +3407,29 @@ function App() {
                             metadata: metadata,
                             selectedBitrate: selectedBitrate,
                             onSelectBitrate: setSelectedBitrate,
+                            outputType: outputType,
+                            onSelectOutputType: setOutputType,
                             onConvert: handleStartConversion,
                             isConverting: isConverting
                         }, void 0, false, {
                             fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                            lineNumber: 260,
+                            lineNumber: 286,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                        lineNumber: 259,
+                        lineNumber: 285,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$FaqSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FaqSection"], {}, void 0, false, {
                         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                        lineNumber: 271,
+                        lineNumber: 299,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                lineNumber: 218,
+                lineNumber: 234,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$components$2f$RecentConversions$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["RecentConversions"], {
@@ -3232,7 +3439,7 @@ function App() {
                 onClearHistory: handleClearHistory
             }, void 0, false, {
                 fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                lineNumber: 275,
+                lineNumber: 303,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
@@ -3242,10 +3449,10 @@ function App() {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                             className: "text-[#8E9299]",
-                            children: "YouTube to MP3 Audio Studio © 2026"
+                            children: "YouTube Media Studio © 2026"
                         }, void 0, false, {
                             fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                            lineNumber: 285,
+                            lineNumber: 313,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$audio$2d$processor$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3253,28 +3460,28 @@ function App() {
                             children: "Supports standard videos, Shorts, & YouTube Music"
                         }, void 0, false, {
                             fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                            lineNumber: 286,
+                            lineNumber: 314,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                    lineNumber: 284,
+                    lineNumber: 312,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-                lineNumber: 283,
+                lineNumber: 311,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/audio-processor/app/youtubelink/page.tsx",
-        lineNumber: 203,
+        lineNumber: 219,
         columnNumber: 5
     }, this);
 }
-_s(App, "l/DcJgYgdeyKx7b0WNLEiXaj/AE=");
+_s(App, "wyHcVbHms2F2g82QtXNTlBt7RM4=");
 _c = App;
 var _c;
 __turbopack_context__.k.register(_c, "App");

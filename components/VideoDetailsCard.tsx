@@ -14,7 +14,8 @@ import {
   User, 
   FileAudio,
   Play,
-  ExternalLink
+  ExternalLink,
+  Video
 } from 'lucide-react';
 import { VideoMetadata, AudioFormatOption } from '../types/types';
 
@@ -22,6 +23,8 @@ interface VideoDetailsCardProps {
   metadata: VideoMetadata;
   selectedBitrate: AudioFormatOption['bitrate'];
   onSelectBitrate: (bitrate: AudioFormatOption['bitrate']) => void;
+  outputType: 'audio' | 'video';
+  onSelectOutputType: (type: 'audio' | 'video') => void;
   onConvert: (options: {
     bitrate: AudioFormatOption['bitrate'];
     title?: string;
@@ -31,6 +34,8 @@ interface VideoDetailsCardProps {
     endTime?: number;
     normalizeAudio?: boolean;
     fadeInOut?: boolean;
+    outputType?: 'audio' | 'video';
+    videoQuality?: 'best' | '1080' | '720' | '480' | '360';
   }) => void;
   isConverting: boolean;
 }
@@ -39,6 +44,8 @@ export const VideoDetailsCard: React.FC<VideoDetailsCardProps> = ({
   metadata,
   selectedBitrate,
   onSelectBitrate,
+  outputType,
+  onSelectOutputType,
   onConvert,
   isConverting,
 }) => {
@@ -55,6 +62,7 @@ export const VideoDetailsCard: React.FC<VideoDetailsCardProps> = ({
   // Audio enhancements
   const [normalizeAudio, setNormalizeAudio] = useState(true);
   const [fadeInOut, setFadeInOut] = useState(false);
+  const [videoQuality, setVideoQuality] = useState<'best' | '1080' | '720' | '480' | '360'>('720');
 
   const formatSecToMin = (sec: number) => {
     const mins = Math.floor(sec / 60);
@@ -72,6 +80,8 @@ export const VideoDetailsCard: React.FC<VideoDetailsCardProps> = ({
       endTime: enableTrim ? endTime : undefined,
       normalizeAudio,
       fadeInOut,
+      outputType,
+      videoQuality,
     });
   };
 
@@ -143,7 +153,7 @@ export const VideoDetailsCard: React.FC<VideoDetailsCardProps> = ({
           </div>
 
           {/* Bitrate Selector Chips */}
-          <div className="pt-2 border-t border-white/10">
+          {outputType === 'audio' ? <div className="pt-2 border-t border-white/10">
             <label className="text-xs font-semibold uppercase tracking-wider text-[#8E9299] mb-2 block flex items-center justify-between">
               <span>Select Audio Bitrate</span>
               <span className="text-[#F27D26] lowercase text-[11px] font-normal">
@@ -177,7 +187,30 @@ export const VideoDetailsCard: React.FC<VideoDetailsCardProps> = ({
                 );
               })}
             </div>
-          </div>
+          </div> : (
+            <div className="pt-2 border-t border-white/10">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-[#8E9299]">Video quality</label>
+              <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+                {(['best', '1080', '720', '480', '360'] as const).map((quality) => (
+                  <button key={quality} type="button" onClick={() => setVideoQuality(quality)} className={`rounded-xl border px-2 py-2.5 text-xs font-bold transition ${videoQuality === quality ? 'border-[#F27D26] bg-[#F27D26]/15 text-white ring-1 ring-[#F27D26]/40' : 'border-white/5 bg-[#1A1A1A] text-[#8E9299] hover:border-white/20 hover:text-white'}`}>
+                    {quality === 'best' ? 'Best' : `${quality}p`}
+                  </button>
+                ))}
+              </div>
+              <p className="mt-2 text-[11px] text-[#5A5E66]">Maximum resolution; falls back to the closest available quality.</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="border-t border-white/10 px-5 py-4 sm:px-6">
+        <div className="grid grid-cols-2 gap-2 rounded-xl bg-[#0A0A0A] p-1.5">
+          <button type="button" onClick={() => onSelectOutputType('audio')} className={`flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold transition ${outputType === 'audio' ? 'bg-[#F27D26] text-white shadow-lg shadow-[#F27D26]/20' : 'text-[#8E9299] hover:bg-white/5 hover:text-white'}`}>
+            <Music2 className="h-4 w-4" /> Audio MP3
+          </button>
+          <button type="button" onClick={() => onSelectOutputType('video')} className={`flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-xs font-bold transition ${outputType === 'video' ? 'bg-[#F27D26] text-white shadow-lg shadow-[#F27D26]/20' : 'text-[#8E9299] hover:bg-white/5 hover:text-white'}`}>
+            <Video className="h-4 w-4" /> Video MP4
+          </button>
         </div>
       </div>
 
@@ -329,14 +362,14 @@ export const VideoDetailsCard: React.FC<VideoDetailsCardProps> = ({
       <div className="p-5 sm:p-6 bg-[#0A0A0A]/80 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-lg bg-[#F27D26]/10 border border-[#F27D26]/20 text-[#F27D26] flex items-center justify-center font-bold text-xs">
-            MP3
+            {outputType === 'video' ? 'MP4' : 'MP3'}
           </div>
           <div>
             <div className="text-sm font-semibold text-white">
-              {currentFormat.label}
+              {outputType === 'video' ? `${videoQuality === 'best' ? 'Best available' : `${videoQuality}p`} MP4 video` : currentFormat.label}
             </div>
             <div className="text-xs text-[#8E9299]">
-              Cover art + ID3 metadata included
+              {outputType === 'video' ? 'Video and audio merged with FFmpeg' : 'ID3 metadata included'}
             </div>
           </div>
         </div>
@@ -349,7 +382,7 @@ export const VideoDetailsCard: React.FC<VideoDetailsCardProps> = ({
           className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#F27D26] hover:bg-[#E06D1A] text-white font-bold text-sm shadow-xl shadow-[#F27D26]/20 transition cursor-pointer flex items-center justify-center gap-2"
         >
           <Sparkles className="w-4 h-4" />
-          <span>Convert to MP3 ({selectedBitrate.toUpperCase()})</span>
+          <span>{outputType === 'video' ? 'Download Video (MP4)' : `Convert to MP3 (${selectedBitrate.toUpperCase()})`}</span>
         </button>
       </div>
     </div>

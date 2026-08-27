@@ -15,12 +15,12 @@
   },
   {
     "route": "/youtubelink",
-    "firstLoadUncompressedJsBytes": 570968,
+    "firstLoadUncompressedJsBytes": 574958,
     "firstLoadChunkPaths": [
       ".next\\static\\chunks\\13~42kze5csgk.js",
       ".next\\static\\chunks\\11_ad6k-s7oo8.js",
       ".next\\static\\chunks\\0iexkrt1tqhce.js",
-      ".next\\static\\chunks\\0e73m_76e7li-.js",
+      ".next\\static\\chunks\\0n_edtkcuuktd.js",
       ".next\\static\\chunks\\0j2496k1pofif.js",
       ".next\\static\\chunks\\0egf.rthnljlg.js",
       ".next\\static\\chunks\\0q04y~v2f.ytd.js",
