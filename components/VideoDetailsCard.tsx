@@ -15,7 +15,9 @@ import {
   FileAudio,
   Play,
   ExternalLink,
-  Video
+  Video,
+  Camera,
+  Loader2
 } from 'lucide-react';
 import { VideoMetadata, AudioFormatOption } from '../types/types';
 
@@ -63,6 +65,11 @@ export const VideoDetailsCard: React.FC<VideoDetailsCardProps> = ({
   const [normalizeAudio, setNormalizeAudio] = useState(true);
   const [fadeInOut, setFadeInOut] = useState(false);
   const [videoQuality, setVideoQuality] = useState<'best' | '1080' | '720' | '480' | '360'>('720');
+  const [frameStart, setFrameStart] = useState(0);
+  const [frameCount, setFrameCount] = useState(3);
+  const [framePeriod, setFramePeriod] = useState(1);
+  const [isExtractingFrames, setIsExtractingFrames] = useState(false);
+  const [frameError, setFrameError] = useState<string | null>(null);
 
   const formatSecToMin = (sec: number) => {
     const mins = Math.floor(sec / 60);
@@ -83,6 +90,37 @@ export const VideoDetailsCard: React.FC<VideoDetailsCardProps> = ({
       outputType,
       videoQuality,
     });
+  };
+
+  const handleExtractFrames = async () => {
+    setIsExtractingFrames(true);
+    setFrameError(null);
+    try {
+      let downloaded = 0;
+      for (let index = 0; index < frameCount; index += 1) {
+        const time = frameStart + index * framePeriod;
+        if (metadata.duration && time > metadata.duration) break;
+        const response = await fetch(`/api/youtube/frame?url=${encodeURIComponent(metadata.url)}&time=${encodeURIComponent(time.toFixed(6))}`);
+        if (!response.ok) {
+          const result = await response.json().catch(() => null);
+          throw new Error(result?.error || `Could not extract the frame at ${time.toFixed(3)}s.`);
+        }
+        const blobUrl = URL.createObjectURL(await response.blob());
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = `frame-${time.toFixed(3)}s.png`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(blobUrl);
+        downloaded += 1;
+      }
+      if (!downloaded) throw new Error('All requested timestamps are beyond the end of the video.');
+    } catch (error) {
+      setFrameError(error instanceof Error ? error.message : 'Unable to extract frames.');
+    } finally {
+      setIsExtractingFrames(false);
+    }
   };
 
   const currentFormat = metadata.formats?.find(f => f.bitrate === selectedBitrate) || {
@@ -212,6 +250,32 @@ export const VideoDetailsCard: React.FC<VideoDetailsCardProps> = ({
             <Video className="h-4 w-4" /> Video MP4
           </button>
         </div>
+      </div>
+
+      <div className="border-t border-[#F27D26]/25 bg-[#F27D26]/[0.04] px-5 py-5 sm:px-6">
+        <div className="mb-4 flex items-center gap-3">
+          <div className="rounded-lg bg-[#F27D26]/15 p-2 text-[#F27D26]"><Camera className="h-5 w-5" /></div>
+          <div>
+            <h3 className="text-sm font-bold text-white">Extract Full-Resolution Frames</h3>
+            <p className="text-[11px] text-[#8E9299]">Reads the highest-resolution video stream directly—no MP4 download required.</p>
+          </div>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <label className="text-xs font-semibold text-[#E0E0E0]">Start second
+            <input type="number" min="0" max={metadata.duration || undefined} step="0.001" value={frameStart} onChange={(event) => setFrameStart(Math.max(0, Number(event.target.value) || 0))} className="mt-1.5 w-full rounded-lg border border-white/10 bg-[#111] px-3 py-2 font-mono text-white outline-none focus:border-[#F27D26]" />
+          </label>
+          <label className="text-xs font-semibold text-[#E0E0E0]">Number of frames
+            <input type="number" min="1" max="10" step="1" value={frameCount} onChange={(event) => setFrameCount(Math.min(10, Math.max(1, Math.floor(Number(event.target.value) || 1))))} className="mt-1.5 w-full rounded-lg border border-white/10 bg-[#111] px-3 py-2 font-mono text-white outline-none focus:border-[#F27D26]" />
+          </label>
+          <label className="text-xs font-semibold text-[#E0E0E0]">Period (seconds)
+            <input type="number" min="0.001" step="0.001" value={framePeriod} onChange={(event) => setFramePeriod(Math.max(0.001, Number(event.target.value) || 0.001))} className="mt-1.5 w-full rounded-lg border border-white/10 bg-[#111] px-3 py-2 font-mono text-white outline-none focus:border-[#F27D26]" />
+          </label>
+        </div>
+        <button type="button" onClick={handleExtractFrames} disabled={isExtractingFrames} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-[#F27D26] bg-[#F27D26]/15 px-5 py-3 text-sm font-bold text-white transition hover:bg-[#F27D26] disabled:opacity-50">
+          {isExtractingFrames ? <Loader2 className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}
+          {isExtractingFrames ? 'Extracting frames…' : `Extract & Download ${frameCount} PNG${frameCount === 1 ? '' : 's'}`}
+        </button>
+        {frameError && <p className="mt-3 text-xs text-rose-400">{frameError}</p>}
       </div>
 
       {/* Advanced Tuning & ID3 Metadata Toggle */}

@@ -15,7 +15,9 @@ import {
   HardDrive,
   FileAudio,
   FileVideo,
-  Video
+  Video,
+  Camera,
+  Loader2
 } from 'lucide-react';
 import { ConversionJob } from '../types/types';
 
@@ -31,8 +33,14 @@ export const ConversionCard: React.FC<ConversionCardProps> = ({ job, onReset }) 
   const [volume, setVolume] = useState(0.85);
   const [isMuted, setIsMuted] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [frameTime, setFrameTime] = useState(0);
+  const [frameCount, setFrameCount] = useState(3);
+  const [framePeriod, setFramePeriod] = useState(1);
+  const [isExtractingFrame, setIsExtractingFrame] = useState(false);
+  const [frameError, setFrameError] = useState<string | null>(null);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const downloadUrl = `/api/download/${job.id}`;
   const streamUrl = `/api/stream/${job.id}`;
@@ -102,6 +110,37 @@ export const ConversionCard: React.FC<ConversionCardProps> = ({ job, onReset }) 
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2000);
     });
+  };
+
+  const extractFrames = async () => {
+    setIsExtractingFrame(true);
+    setFrameError(null);
+    try {
+      for (let index = 0; index < frameCount; index += 1) {
+        const timestamp = frameTime + index * framePeriod;
+        const videoDuration = job.metadata?.duration || Infinity;
+        if (timestamp > videoDuration) break;
+        const response = await fetch(`/api/frame/${job.id}?time=${encodeURIComponent(timestamp.toFixed(6))}&source=stream`);
+        if (!response.ok) {
+          const result = await response.json().catch(() => null);
+          throw new Error(result?.error || `Unable to extract the frame at ${timestamp.toFixed(3)}s.`);
+        }
+        const blobUrl = URL.createObjectURL(await response.blob());
+        const disposition = response.headers.get('content-disposition') || '';
+        const encodedName = disposition.match(/filename\*=UTF-8''([^;]+)/i)?.[1];
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = encodedName ? decodeURIComponent(encodedName) : `frame-${timestamp.toFixed(3)}s.png`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(blobUrl);
+      }
+    } catch (error) {
+      setFrameError(error instanceof Error ? error.message : 'Unable to extract this frame.');
+    } finally {
+      setIsExtractingFrame(false);
+    }
   };
 
   // Format file size in MB
@@ -264,7 +303,59 @@ export const ConversionCard: React.FC<ConversionCardProps> = ({ job, onReset }) 
 
           {isVideo && (
             <div className="overflow-hidden rounded-xl border border-white/10 bg-black">
-              <video src={streamUrl} controls preload="metadata" className="aspect-video w-full" />
+              <video
+                ref={videoRef}
+                src={streamUrl}
+                controls
+                preload="metadata"
+                className="aspect-video w-full"
+                onTimeUpdate={(event) => setFrameTime(event.currentTarget.currentTime)}
+              />
+              <div className="space-y-3 border-t border-white/10 bg-[#0A0A0A] p-4">
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <label className="flex-1 text-xs font-semibold text-white">
+                    Exact frame time (seconds)
+                    <input
+                      type="number"
+                      min="0"
+                      max={duration || job.metadata?.duration || undefined}
+                      step="0.001"
+                      value={Number.isFinite(frameTime) ? frameTime.toFixed(3) : '0.000'}
+                      onChange={(event) => setFrameTime(Math.max(0, Number(event.target.value) || 0))}
+                      className="mt-2 w-full rounded-lg border border-white/10 bg-[#171717] px-3 py-2 font-mono text-white outline-none focus:border-[#F27D26]"
+                    />
+                  </label>
+                  <label className="text-xs font-semibold text-white">
+                    Number of frames
+                    <input
+                      type="number" min="1" max="10" step="1" value={frameCount}
+                      onChange={(event) => setFrameCount(Math.min(10, Math.max(1, Math.floor(Number(event.target.value) || 1))))}
+                      className="mt-2 w-full rounded-lg border border-white/10 bg-[#171717] px-3 py-2 font-mono text-white outline-none focus:border-[#F27D26]"
+                    />
+                  </label>
+                  <label className="text-xs font-semibold text-white">
+                    Period between frames (seconds)
+                    <input
+                      type="number" min="0.001" step="0.001" value={framePeriod}
+                      onChange={(event) => setFramePeriod(Math.max(0.001, Number(event.target.value) || 0.001))}
+                      className="mt-2 w-full rounded-lg border border-white/10 bg-[#171717] px-3 py-2 font-mono text-white outline-none focus:border-[#F27D26]"
+                    />
+                  </label>
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={extractFrames}
+                    disabled={isExtractingFrame}
+                    className="flex items-center justify-center gap-2 rounded-lg bg-[#F27D26] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#E06D1A] disabled:opacity-50"
+                  >
+                    {isExtractingFrame ? <Loader2 className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}
+                    {isExtractingFrame ? 'Extracting…' : `Download ${frameCount} Full-Size PNG${frameCount === 1 ? '' : 's'}`}
+                  </button>
+                </div>
+                <p className="text-[11px] text-[#8E9299]">Starts at the player’s current position, then captures each interval directly from the highest-resolution remote stream. If direct seeking is unavailable, it automatically uses the downloaded video.</p>
+                {frameError && <p className="text-xs text-rose-400">{frameError}</p>}
+              </div>
             </div>
           )}
 

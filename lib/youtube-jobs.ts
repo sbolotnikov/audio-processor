@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
-import { mkdir, readdir, rm, stat } from 'node:fs/promises';
+import { mkdir, readFile, readdir, rm, stat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import type { ConversionJob, VideoMetadata } from '@/types/types';
@@ -245,6 +245,75 @@ async function executeVideo(job: StoredJob, request: ConvertRequest, metadata: V
 
 export function getYouTubeJob(id: string) { return registry.jobs.get(id); }
 export function completedYouTubeJobs() { return [...registry.jobs.values()].filter((job) => job.status === 'completed').sort((a, b) => b.createdAt - a.createdAt); }
+
+async function bestRemoteVideoStream(url: string) {
+  const urls: string[] = [];
+  await run(executable('yt-dlp'), [
+    '--no-playlist', '--no-warnings', '--get-url', '--format', 'bestvideo/best', url,
+  ], (line) => {
+    const value = line.trim();
+    if (/^https?:\/\//i.test(value)) urls.push(value);
+  });
+  if (!urls[0]) throw new Error('No directly seekable video stream was found.');
+  return urls[0];
+}
+
+export async function extractVideoFrame(jobId: string, time: number, preferStream = true) {
+  const job = registry.jobs.get(jobId);
+  if (!job?.filePath || job.status !== 'completed' || job.outputType !== 'video') {
+    throw new Error('Video is not ready or has expired.');
+  }
+  if (!Number.isFinite(time) || time < 0) throw new Error('Enter a valid timestamp.');
+  const duration = job.metadata?.duration;
+  if (duration && time > duration) throw new Error(`Timestamp must be between 0 and ${duration} seconds.`);
+
+  const framePath = path.join(path.dirname(job.filePath), `frame-${crypto.randomUUID()}.png`);
+  try {
+    // Put -ss after -i so FFmpeg decodes to the requested instant instead of
+    // jumping only to the nearest keyframe. No scale filter preserves the
+    // downloaded stream's full native dimensions.
+    const extract = (input: string) => run(executable('ffmpeg'), [
+      '-y', '-i', input, '-ss', time.toFixed(6), '-map', '0:v:0',
+      '-frames:v', '1', '-compression_level', '0', framePath,
+    ]);
+    let source = 'downloaded video';
+    if (preferStream) {
+      try {
+        await extract(await bestRemoteVideoStream(job.url));
+        source = 'highest-resolution remote stream';
+      } catch {
+        await extract(job.filePath);
+      }
+    } else {
+      await extract(job.filePath);
+    }
+    return {
+      data: await readFile(framePath),
+      fileName: safeAudioName(`${job.videoTitle} - ${time.toFixed(3)}s`, 'png'),
+      source,
+    };
+  } finally {
+    await rm(framePath, { force: true });
+  }
+}
+
+export async function extractYouTubeFrame(rawUrl: string, time: number) {
+  const { url } = normalizeYouTubeUrl(rawUrl);
+  if (!Number.isFinite(time) || time < 0) throw new Error('Enter a valid non-negative timestamp.');
+  const directory = path.join(workRoot, `frames-${crypto.randomUUID()}`);
+  const framePath = path.join(directory, 'frame.png');
+  await mkdir(directory, { recursive: true });
+  try {
+    const streamUrl = await bestRemoteVideoStream(url);
+    await run(executable('ffmpeg'), [
+      '-y', '-i', streamUrl, '-ss', time.toFixed(6), '-map', '0:v:0',
+      '-frames:v', '1', '-compression_level', '0', framePath,
+    ]);
+    return await readFile(framePath);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+}
 
 if (!registry.cleanupStarted) {
   registry.cleanupStarted = true;
