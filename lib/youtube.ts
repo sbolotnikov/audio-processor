@@ -7,6 +7,12 @@ import { promisify } from 'node:util';
 
 const execFileAsync = promisify(execFile);
 
+export function ytDlpRuntimeArgs() {
+  // yt-dlp only enables Deno by default. Reuse the server's Node executable
+  // so YouTube challenge solving also works when Node is absent from PATH.
+  return ['--js-runtimes', `node:${process.execPath}`];
+}
+
 export function normalizeYouTubeUrl(rawValue: string) {
   const value = rawValue.trim();
   const match = value.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?(?:[^#]*&)?v=)|music\.youtube\.com\/watch\?(?:[^#]*&)?v=)([\w-]{11})/i);
@@ -56,7 +62,7 @@ export async function extractYouTubeAudio(rawUrl: string) {
 
   try {
     const { command, prefixArgs } = ytDlpInvocation();
-    await execFileAsync(command, [...prefixArgs,
+    await execFileAsync(command, [...prefixArgs, ...ytDlpRuntimeArgs(),
       '--no-playlist',
       '--no-warnings',
       '--format', 'bestaudio/best',

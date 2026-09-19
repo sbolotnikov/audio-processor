@@ -4,7 +4,7 @@ import { mkdir, readFile, readdir, rm, stat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import type { ConversionJob, VideoMetadata } from '@/types/types';
-import { getYouTubeInfo, normalizeYouTubeUrl, safeAudioName } from '@/lib/youtube';
+import { getYouTubeInfo, normalizeYouTubeUrl, safeAudioName, ytDlpRuntimeArgs } from '@/lib/youtube';
 
 type ConvertRequest = {
   url: string; bitrate?: string; title?: string; artist?: string; album?: string;
@@ -42,6 +42,10 @@ function run(command: string, args: string[], onLine?: (line: string) => void) {
   });
 }
 
+function runYtDlp(args: string[], onLine?: (line: string) => void) {
+  return run(executable('yt-dlp'), [...ytDlpRuntimeArgs(), ...args], onLine);
+}
+
 function durationLabel(seconds: number) {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
@@ -64,7 +68,7 @@ export async function videoInfo(url: string): Promise<VideoMetadata> {
   let detail: any = {};
   try {
     let json = '';
-    await run(executable('yt-dlp'), ['--dump-single-json', '--skip-download', '--no-playlist', '--no-warnings', basic.url], (line) => { if (line.trim().startsWith('{')) json = line; });
+    await runYtDlp(['--dump-single-json', '--skip-download', '--no-playlist', '--no-warnings', basic.url], (line) => { if (line.trim().startsWith('{')) json = line; });
     if (json) detail = JSON.parse(json);
   } catch { /* oEmbed data is a valid fallback */ }
   const duration = Number(detail.duration) || 180;
@@ -100,7 +104,7 @@ function validateMediaUrl(rawUrl: string) {
 export async function mediaInfo(rawUrl: string): Promise<VideoMetadata> {
   const url = validateMediaUrl(rawUrl);
   let json = '';
-  await run(executable('yt-dlp'), ['--dump-single-json', '--skip-download', '--no-playlist', '--no-warnings', url], (line) => {
+  await runYtDlp(['--dump-single-json', '--skip-download', '--no-playlist', '--no-warnings', url], (line) => {
     if (line.trim().startsWith('{')) json = line;
   });
   if (!json) throw new Error('The site did not return usable video information. The media may be private or DRM-protected.');
@@ -153,7 +157,7 @@ async function execute(job: StoredJob, request: ConvertRequest) {
 
     job.status = 'downloading'; job.progress = 25; job.stageMessage = 'Downloading the best audio stream…';
     const sourceTemplate = path.join(directory, 'source.%(ext)s');
-    await run(executable('yt-dlp'), [
+    await runYtDlp([
       '--no-playlist', '--newline', '--no-warnings', '--format', 'bestaudio/best',
       '--progress-template', 'download:%(progress._percent_str)s', '--output', sourceTemplate, metadata.url,
     ], (line) => {
@@ -202,7 +206,7 @@ async function executeVideo(job: StoredJob, request: ConvertRequest, metadata: V
   const sourceTemplate = path.join(directory, 'source.%(ext)s');
   const heightFilter = request.videoQuality && request.videoQuality !== 'best' ? `[height<=${request.videoQuality}]` : '';
   const videoFormat = `bestvideo${heightFilter}[ext=mp4]+bestaudio[ext=m4a]/bestvideo${heightFilter}+bestaudio/best${heightFilter}[ext=mp4]/best${heightFilter}`;
-  await run(executable('yt-dlp'), [
+  await runYtDlp([
     '--no-playlist', '--newline', '--no-warnings',
     '--format', videoFormat,
     '--merge-output-format', 'mp4', '--ffmpeg-location', path.dirname(executable('ffmpeg')),
@@ -248,7 +252,7 @@ export function completedYouTubeJobs() { return [...registry.jobs.values()].filt
 
 async function bestRemoteVideoStream(url: string) {
   const urls: string[] = [];
-  await run(executable('yt-dlp'), [
+  await runYtDlp([
     '--no-playlist', '--no-warnings', '--get-url', '--format', 'bestvideo/best', url,
   ], (line) => {
     const value = line.trim();
